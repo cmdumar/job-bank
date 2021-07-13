@@ -6,7 +6,7 @@ export default function Logo({ w }) {
   return (
     <Box w={w}>
       <Text fontSize="lg" fontWeight="bold">
-        Logo
+        Job Bank
       </Text>
     </Box>
   );
