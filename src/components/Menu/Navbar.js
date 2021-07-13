@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@chakra-ui/react';
 import Logo from './Logo';
 import MenuToggle from './MenuToggle';
 import NavBarContainer from './NavbarContainer';
@@ -15,9 +16,11 @@ const NavBar = () => {
       <Logo
         w="100px"
       />
-      <ColorModeSwitcher justifySelf="flex-end" />
-      <MenuToggle toggle={toggle} isOpen={isOpen} />
-      <MenuLinks isOpen={isOpen} />
+      <Box display="flex" alignItems="center">
+        <MenuToggle toggle={toggle} isOpen={isOpen} />
+        <MenuLinks isOpen={isOpen} />
+        <ColorModeSwitcher justifySelf="flex-end" />
+      </Box>
     </NavBarContainer>
   );
 };
