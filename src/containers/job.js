@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { MdLocationOn } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
+import { GiMoneyStack } from 'react-icons/gi';
 
 const Job = () => {
   const [title, setTitle] = useState('Front-End Dev');
@@ -30,6 +31,10 @@ const Job = () => {
         <Box display="flex" alignItems="center" fontWeight="300">
           <MdLocationOn />
           <Text fontSize="sm" pl="2">United States</Text>
+        </Box>
+        <Box display="flex" alignItems="center" pt="2" fontWeight="300">
+          <GiMoneyStack />
+          <Text fontSize="sm" pl="2">Salary: $14 hourly</Text>
         </Box>
         <Box display="flex" alignItems="center" pt="2" fontWeight="300">
           <AiOutlineClockCircle />
@@ -65,7 +70,7 @@ const Job = () => {
       <Divider />
       <Box py="4">
         <Heading as="h3" size="sm" fontWeight="600">YOU'LL BE WORKING WITH</Heading>
-        <SimpleGrid minChildWidth="200px" spacing="20px" pt="2">
+        <SimpleGrid minChildWidth="200px" spacing="20px" pt="3">
           <Box bg="white" color="black" p="8" w="100%" textAlign="center">
             <Image
               borderRadius="full"
