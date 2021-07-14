@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Container, Box, Text, Image, Heading, Divider, SimpleGrid, Tag, HStack,
 } from '@chakra-ui/react';
@@ -8,6 +8,11 @@ import { MdLocationOn } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { GiMoneyStack } from 'react-icons/gi';
 import { FaLanguage } from 'react-icons/fa';
+import {
+  object, bool, func, oneOfType, string, array,
+} from 'prop-types';
+import { connect } from 'react-redux';
+import fetchJob from '../redux/actions/job';
 
 const Job = () => {
   const [title, setTitle] = useState('Front-End Dev');
@@ -142,4 +147,10 @@ const Job = () => {
   );
 };
 
-export default Job;
+const mapStateToProps = (state) => ({
+  job: state.job,
+  fetching: state.fetching,
+  error: state.error,
+});
+
+export default connect(mapStateToProps, { fetchJob })(Job);
