@@ -39,6 +39,14 @@ const Jobs = ({ fetchJobs, jobs, fetching }) => {
               ${i.remote ? 'Remote' : ''}
               ${i.locations.length > 0 ? ` | ${i.locations[0]}` : ''}`}
           </Text>
+          <Text fontSize="sm" color="green.500">
+            Salary:
+            {' '}
+            {`USD ${i.compensation.data.minHourlyUSD.toFixed(2)} to
+            USD ${i.compensation.data.maxHourlyUSD.toFixed(2)}`}
+            {' '}
+            hourly
+          </Text>
         </Box>
       </Box>
     ));
