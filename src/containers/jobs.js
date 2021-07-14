@@ -4,20 +4,29 @@ import {
 import {
   object, bool, func, oneOfType, string, array,
 } from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import fetchJobs from '../redux/actions/jobs';
+import Pagination from '../components/pagination';
 
 const Jobs = ({
   fetchJobs, jobs, fetching, error,
 }) => {
+  const [offset, setOffset] = useState(0);
+
   useEffect(() => {
-    fetchJobs(2);
-  }, []);
+    fetchJobs(offset);
+  }, [offset]);
+
+  const handlePageChange = (offset) => {
+    setOffset(offset);
+  };
 
   let toRender;
 
-  console.log('Jobs', jobs);
+  // console.log('Jobs', jobs);
+  console.log('Page', offset);
+  // console.log('hello', jobs.total);
 
   if (fetching) {
     toRender = <div>Loading</div>;
@@ -28,41 +37,52 @@ const Jobs = ({
   }
 
   if (!fetching && !error) {
-    toRender = jobs.results && jobs.results.map((i) => (
-      <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="lg" p="4" m="8">
-        <Box display="flex">
-          <Image
-            borderRadius="full"
-            boxSize="50px"
-            fit="cover"
-            src={i.organizations[0].picture}
-            alt="company logo"
-          />
-          <Box textAlign="left" pl="4">
-            <Text fontSize="md" pb="2">{i.objective}</Text>
-            <Text fontSize="sm">{i.organizations[0].name}</Text>
-            <Text fontSize="sm">
-              {`
+    toRender = (
+      <Box>
+        {
+      jobs.results && jobs.results.map((i) => (
+        <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="lg" p="4" m="8">
+          <Box display="flex">
+            <Image
+              borderRadius="full"
+              boxSize="50px"
+              fit="cover"
+              src={i.organizations[0].picture}
+              alt="company logo"
+            />
+            <Box textAlign="left" pl="4">
+              <Text fontSize="md" pb="2">{i.objective}</Text>
+              <Text fontSize="sm">{i.organizations[0].name}</Text>
+              <Text fontSize="sm">
+                {`
                 ${i.remote ? 'Remote' : ''}
                 ${i.locations.length > 0 ? ` | ${i.locations[0]}` : ''}`}
-            </Text>
-            <Text fontSize="sm">
-              Posted on
-              {' '}
-              {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
-            </Text>
-            <Text fontSize="sm" color="green.400">
-              Salary:
-              {' '}
-              {`USD ${i.compensation.data.minHourlyUSD.toFixed(2)} to
+              </Text>
+              <Text fontSize="sm">
+                Posted on
+                {' '}
+                {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
+              </Text>
+              <Text fontSize="sm" color="green.400">
+                Salary:
+                {' '}
+                {`USD ${i.compensation.data.minHourlyUSD.toFixed(2)} to
               USD ${i.compensation.data.maxHourlyUSD.toFixed(2)}`}
-              {' '}
-              hourly
-            </Text>
+                {' '}
+                hourly
+              </Text>
+            </Box>
           </Box>
         </Box>
+      ))
+}
+        <Pagination
+          handlePageChange={handlePageChange}
+          dataLimit={15}
+          totalData={jobs.total && jobs.total}
+        />
       </Box>
-    ));
+    );
   }
 
   return (
