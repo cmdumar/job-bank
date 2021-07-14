@@ -8,6 +8,9 @@ const Routes = () => (
     <Route exact path="/">
       <Jobs />
     </Route>
+    <Route path="/jobs/:id">
+      <div>Hello Jobs</div>
+    </Route>
     <Route path="/profiles">
       <Profiles />
     </Route>
