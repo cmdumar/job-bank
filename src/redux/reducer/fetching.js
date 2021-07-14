@@ -1,8 +1,8 @@
-import types from '../actions/fetching';
+import types from '../actions/types';
 
 export default (state = false, action) => {
   if (action.type === types.SET_FETCHING) {
-    return action.payload;
+    return action.status;
   }
   return state;
 };

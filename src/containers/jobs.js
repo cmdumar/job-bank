@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import fetchJobs from '../redux/actions/jobs';
 
 const Jobs = ({ fetchJobs, jobs, fetching }) => {
-  useEffect(async () => {
+  useEffect(() => {
     fetchJobs(1);
   }, []);
 
@@ -17,7 +17,7 @@ const Jobs = ({ fetchJobs, jobs, fetching }) => {
   console.log('fetching', fetching);
 
   if (fetching) {
-    console.log(fetching);
+    console.log('inside', fetching);
     toRender = <div>Loading</div>;
   }
 
