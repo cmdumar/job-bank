@@ -1,12 +1,16 @@
 import {
   Box, Container, Image, Text,
 } from '@chakra-ui/react';
-import { object, bool, func } from 'prop-types';
+import {
+  object, bool, func, oneOfType, string, array,
+} from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import fetchJobs from '../redux/actions/jobs';
 
-const Jobs = ({ fetchJobs, jobs, fetching }) => {
+const Jobs = ({
+  fetchJobs, jobs, fetching, error,
+}) => {
   useEffect(() => {
     fetchJobs(1);
   }, []);
@@ -14,14 +18,18 @@ const Jobs = ({ fetchJobs, jobs, fetching }) => {
   let toRender;
 
   console.log('Jobs', jobs);
-  console.log('fetching', fetching);
+
+  console.log('error', error.message);
 
   if (fetching) {
-    console.log('inside', fetching);
     toRender = <div>Loading</div>;
   }
 
-  if (!fetching) {
+  if (!fetching && error) {
+    toRender = <div>{error.message}</div>;
+  }
+
+  if (!fetching && !error) {
     toRender = jobs.results && jobs.results.map((i) => (
       <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="lg" p="4" m="8">
         <Box display="flex">
@@ -73,11 +81,17 @@ Jobs.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   jobs: object.isRequired,
   fetching: bool.isRequired,
+  error: oneOfType([string, object, array]),
+};
+
+Jobs.defaultProps = {
+  error: null,
 };
 
 const mapStateToProps = (state) => ({
   jobs: state.jobs,
   fetching: state.fetching,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { fetchJobs })(Jobs);
