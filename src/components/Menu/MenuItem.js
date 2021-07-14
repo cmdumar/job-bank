@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const MenuItem = ({
   children, to,
 }) => (
-  <Link to={`${to}`}>
+  <Link to={`${to}`} display="block" width="100%">
     <Text display="block">
       {children}
     </Text>
