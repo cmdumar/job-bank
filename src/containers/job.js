@@ -7,6 +7,7 @@ import {
 import { MdLocationOn } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { GiMoneyStack } from 'react-icons/gi';
+import { FaLanguage } from 'react-icons/fa';
 
 const Job = () => {
   const [title, setTitle] = useState('Front-End Dev');
@@ -39,6 +40,10 @@ const Job = () => {
         <Box display="flex" alignItems="center" pt="2" fontWeight="300">
           <AiOutlineClockCircle />
           <Text fontSize="sm" pl="2">Posted on July 14</Text>
+        </Box>
+        <Box display="flex" alignItems="center" pt="2" fontWeight="300">
+          <FaLanguage />
+          <Text fontSize="sm" pl="2">Language: English</Text>
         </Box>
       </Box>
       <Divider />
