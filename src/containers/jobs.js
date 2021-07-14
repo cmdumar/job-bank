@@ -23,7 +23,7 @@ const Jobs = ({ fetchJobs, jobs, fetching }) => {
 
   if (!fetching) {
     toRender = jobs.results && jobs.results.map((i) => (
-      <Box key={i.id} display="flex" alignItems="flex-start" m="8">
+      <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="lg" m="8">
         <Image
           borderRadius="full"
           boxSize="50px"
@@ -32,7 +32,12 @@ const Jobs = ({ fetchJobs, jobs, fetching }) => {
           alt="company logo"
         />
         <Box textAlign="left" pl="4">
-          <Text fontSize="md">{i.objective}</Text>
+          <Box display="flex" justifyContent="space-between">
+            <Text fontSize="md">{i.objective}</Text>
+            <Text fontSize="sm">
+              {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
+            </Text>
+          </Box>
           <Text fontSize="sm">{i.organizations[0].name}</Text>
           <Text fontSize="sm" color="whiteAlpha.700">
             {`
