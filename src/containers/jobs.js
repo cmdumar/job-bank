@@ -50,7 +50,7 @@ const Jobs = ({
       <Box>
         {
       jobs?.results?.map((i) => (
-        <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="lg" p="4" m="8">
+        <Box key={i.id} maxW="full" borderWidth="1px" colorScheme="red" borderRadius="sm" p="4" m="8">
           <Link to={`/jobs/${i.id}`}>
             <Box display="flex">
               <Image
@@ -61,19 +61,22 @@ const Jobs = ({
                 alt="company logo"
               />
               <Box textAlign="left" pl="4">
-                <Text fontSize="md" pb="2">{i.objective}</Text>
-                <Text fontSize="sm">{i.organizations[0].name}</Text>
-                <Text fontSize="sm">
+                <Text fontSize="lg" pb="1" color={['blue.500', 'blue.300']} fontWeight="500">{i.objective}</Text>
+                <Text fontSize="sm" pb="1">
+                  <Text display="inline" color="gray.500">at </Text>
+                  {i.organizations[0].name}
+                </Text>
+                <Text fontSize="sm" pb="1">
                   {`
                   ${i.remote ? 'Remote' : ''}
                   ${i.locations.length > 0 ? ` | ${i.locations[0]}` : ''}`}
                 </Text>
-                <Text fontSize="sm">
+                <Text fontSize="sm" pb="1">
                   Posted on
                   {' '}
                   {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
                 </Text>
-                <Text fontSize="sm" color="green.400">
+                <Text fontSize="sm" color="green.400" pb="1">
                   Salary:
                   {' '}
                   {`USD ${i.compensation?.data?.minHourlyUSD?.toFixed(2)} to
@@ -116,7 +119,7 @@ const Jobs = ({
   }
 
   return (
-    <Container>
+    <Container maxW="container.md">
       <Box>
         {toRender}
       </Box>
