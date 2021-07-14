@@ -12,10 +12,34 @@ import {
   object, bool, func, oneOfType, string, array,
 } from 'prop-types';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import fetchJob from '../redux/actions/job';
 
-const Job = () => {
-  const [title, setTitle] = useState('Front-End Dev');
+const Job = ({
+  fetchJob, job, fetching, error,
+}) => {
+  const { id } = useParams();
+
+  useEffect(async () => {
+    fetchJob(id);
+  }, [id]);
+
+  // console.log('fetch', fetching);
+  // console.log('Job', job);
+  // console.log('error', error);
+  // console.log('id', id);
+
+  if (fetching === 'pending') {
+    console.log('pending', fetching);
+  }
+
+  if (fetching === 'resolved') {
+    console.log('resolved', job);
+  }
+
+  if (fetching === 'rejected') {
+    console.log('error', error);
+  }
 
   return (
     <Container maxW="container.md">
@@ -145,6 +169,18 @@ const Job = () => {
       </Box>
     </Container>
   );
+};
+
+Job.propTypes = {
+  fetchJob: func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  job: object.isRequired,
+  fetching: string.isRequired,
+  error: oneOfType([string, object, array]),
+};
+
+Job.defaultProps = {
+  error: null,
 };
 
 const mapStateToProps = (state) => ({
