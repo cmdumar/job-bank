@@ -6,6 +6,8 @@ import {
 } from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { IconContext } from 'react-icons';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import {
   Paginator,
   Previous,
@@ -87,14 +89,22 @@ const Jobs = ({
           pagesQuantity={totalPages}
           onPageChange={setCurrentPage}
         >
-          <Container align="center" justify="space-between" w="full" p={4}>
+          <Container display="flex" justifyContent="space-between" w="full" p={4}>
             <Previous>
-              Previous
-              {/* Or an icon from `react-icons` */}
+              <IconContext.Provider value={{ className: 'pagination-btn' }}>
+                <GrFormPrevious />
+              </IconContext.Provider>
+              <Text>
+                Previous
+              </Text>
             </Previous>
             <Next>
-              Next
-              {/* Or an icon from `react-icons` */}
+              <Text>
+                Next
+              </Text>
+              <IconContext.Provider value={{ className: 'pagination-btn' }}>
+                <GrFormNext />
+              </IconContext.Provider>
             </Next>
           </Container>
         </Paginator>

@@ -5,7 +5,6 @@ import types from './types';
 
 const fetchJobs = (page) => async (dispatch) => {
   try {
-    console.log('action', page);
     dispatch(setFetching(true));
     const jobs = await axios.post(`https://search.torre.co/opportunities/_search/?offset=${page}&size=15`, {});
     if (jobs.status === 200) {
