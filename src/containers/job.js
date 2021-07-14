@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import {
-  Container, Box, Text, Image, Heading, Divider, SimpleGrid,
+  Container, Box, Text, Image, Heading, Divider, SimpleGrid, Tag, HStack,
 } from '@chakra-ui/react';
 import { MdLocationOn } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
@@ -40,6 +40,24 @@ const Job = () => {
           <AiOutlineClockCircle />
           <Text fontSize="sm" pl="2">Posted on July 14</Text>
         </Box>
+      </Box>
+      <Divider />
+      <Box py="4">
+        <Tag size="md" colorScheme="red" borderRadius="full" m="1">
+          Software Development
+        </Tag>
+        <Tag size="md" colorScheme="red" borderRadius="full" m="1">
+          Software Development
+        </Tag>
+        <Tag size="md" colorScheme="red" borderRadius="full" m="1">
+          Software Development
+        </Tag>
+        <Tag size="md" colorScheme="red" borderRadius="full" m="1">
+          Software Development
+        </Tag>
+        <Tag size="md" colorScheme="red" borderRadius="full" m="1">
+          Software Development
+        </Tag>
       </Box>
       <Divider />
       <Box py="4">
