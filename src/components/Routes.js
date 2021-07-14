@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Jobs from '../containers/jobs';
+import Job from '../containers/job';
 import Profiles from '../containers/profiles';
 
 const Routes = () => (
@@ -9,7 +10,7 @@ const Routes = () => (
       <Jobs />
     </Route>
     <Route path="/jobs/:id">
-      <div>Hello Jobs</div>
+      <Job />
     </Route>
     <Route path="/profiles">
       <Profiles />

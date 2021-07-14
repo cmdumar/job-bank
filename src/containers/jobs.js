@@ -38,11 +38,11 @@ const Jobs = ({
   let toRender;
 
   if (fetching) {
-    toRender = <div>Loading</div>;
+    toRender = <Text>Loading...</Text>;
   }
 
   if (!fetching && error) {
-    toRender = <div>{error.message}</div>;
+    toRender = <Text>{error.message}</Text>;
   }
 
   if (!fetching && !error && jobs.results) {
