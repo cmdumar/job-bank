@@ -1,5 +1,5 @@
 import {
-  Box, Container, Image, Text,
+  Box, Container, Image, Tag, Text, useColorModeValue,
 } from '@chakra-ui/react';
 import {
   object, bool, func, oneOfType, string, array,
@@ -23,6 +23,8 @@ const Jobs = ({
   const { currentPage, setCurrentPage } = usePaginator({
     initialState: { currentPage: 1 },
   });
+
+  const jobTitleColor = useColorModeValue('blue.800', 'blue.300');
 
   useEffect(async () => {
     if (currentPage === 1) fetchJobs(0);
@@ -50,7 +52,7 @@ const Jobs = ({
       <Box>
         {
       jobs?.results?.map((i) => (
-        <Box key={i.id} maxW="full" borderWidth="1px" colorScheme="red" borderRadius="sm" p="4" m="8">
+        <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="sm" p="4" m="8">
           <Link to={`/jobs/${i.id}`}>
             <Box display="flex">
               <Image
@@ -61,9 +63,9 @@ const Jobs = ({
                 alt="company logo"
               />
               <Box textAlign="left" pl="4">
-                <Text fontSize="lg" pb="1" color={['blue.500', 'blue.300']} fontWeight="500">{i.objective}</Text>
+                <Text fontSize="lg" pb="1" color={jobTitleColor} fontWeight="500">{i.objective}</Text>
                 <Text fontSize="sm" pb="1">
-                  <Text display="inline" color="gray.500">at </Text>
+                  <Text display="inline" color="gray.500" as="span">at </Text>
                   {i.organizations[0].name}
                 </Text>
                 <Text fontSize="sm" pb="1">
@@ -84,6 +86,13 @@ const Jobs = ({
                   {' '}
                   hourly
                 </Text>
+                <Box>
+                  {i.skills.slice().map((skill) => (
+                    <Tag key={skill.name} my="1" mr="1" colorScheme="messenger">
+                      {skill.name}
+                    </Tag>
+                  ))}
+                </Box>
               </Box>
             </Box>
           </Link>

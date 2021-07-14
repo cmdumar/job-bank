@@ -12,9 +12,6 @@ import { FaLanguage } from 'react-icons/fa';
 const Job = () => {
   const [title, setTitle] = useState('Front-End Dev');
 
-  console.log('title', title);
-  console.log('set', setTitle);
-
   return (
     <Container maxW="container.md">
       <Box>
@@ -94,7 +91,7 @@ const Job = () => {
       <Box py="4">
         <Heading as="h3" size="sm" fontWeight="600">YOU'LL BE WORKING WITH</Heading>
         <SimpleGrid minChildWidth="200px" spacing="20px" pt="3">
-          <Box bg="white" color="black" p="8" w="100%" textAlign="center">
+          <Box bg="gray.300" color="black" p="8" pb="12" borderRadius="md" w="100%" textAlign="center">
             <Image
               borderRadius="full"
               boxSize="100px"
@@ -106,7 +103,7 @@ const Job = () => {
             <Text fontSize="md" fontWeight="500">John Wick</Text>
             <Text fontSize="sm">Web Developer</Text>
           </Box>
-          <Box bg="white" color="black" p="8" w="100%" textAlign="center">
+          <Box bg="lightblue" color="black" p="8" w="100%" textAlign="center">
             <Image
               src="https://starrgate.s3.amazonaws.com/users/ec7551dff10b04f9c59337114989f6f0cba20c95/profile_WWH0UvD.jpg"
               borderRadius="full"
@@ -117,7 +114,7 @@ const Job = () => {
             <Text fontSize="md" fontWeight="500">John Wick</Text>
             <Text fontSize="sm">Web Developer</Text>
           </Box>
-          <Box bg="white" color="black" p="8" w="100%" textAlign="center">
+          <Box bg="gray.300" color="black" p="8" w="100%" textAlign="center">
             <Image
               src="https://starrgate.s3.amazonaws.com/users/a60d2a68c3e0289b05fe83d82954e64e55e75921/profile_9bg1jDP.jpg"
               borderRadius="full"
@@ -128,7 +125,7 @@ const Job = () => {
             <Text fontSize="md" fontWeight="500">John Wick</Text>
             <Text fontSize="sm">Web Developer</Text>
           </Box>
-          <Box bg="white" color="black" p="8" w="100%" textAlign="center">
+          <Box bg="gray.300" color="black" p="8" w="100%" textAlign="center">
             <Image
               src="https://starrgate.s3.amazonaws.com/users/ec7551dff10b04f9c59337114989f6f0cba20c95/profile_WWH0UvD.jpg"
               borderRadius="full"
