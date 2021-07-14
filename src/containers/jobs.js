@@ -4,29 +4,35 @@ import {
 import {
   object, bool, func, oneOfType, string, array,
 } from 'prop-types';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import {
+  Paginator,
+  Previous,
+  usePaginator,
+  Next,
+} from 'chakra-paginator';
 import fetchJobs from '../redux/actions/jobs';
 
 const Jobs = ({
   fetchJobs, jobs, fetching, error,
 }) => {
-  const [offset, setOffset] = useState(0);
+  const { currentPage, setCurrentPage } = usePaginator({
+    initialState: { currentPage: 1 },
+  });
 
-  useEffect(() => {
-    fetchJobs(offset);
-  }, [offset]);
+  useEffect(async () => {
+    if (currentPage === 1) fetchJobs(0);
+  }, [currentPage]);
 
-  // const callback = useCallback((offset) => {
-  //   setOffset(offset);
-  //   fetchJobs(offset);
-  // });
+  useEffect(async () => {
+    if (currentPage === 1) return;
+    await fetchJobs((currentPage - 1) * 15);
+  }, [currentPage]);
+
+  const totalPages = Math.round((jobs.total + 15 - 1) / 15);
 
   let toRender;
-
-  console.log('Jobs', jobs);
-  console.log('Page', offset);
-  // console.log('hello', jobs.total);
 
   if (fetching) {
     toRender = <div>Loading</div>;
@@ -36,11 +42,11 @@ const Jobs = ({
     toRender = <div>{error.message}</div>;
   }
 
-  if (!fetching && !error) {
+  if (!fetching && !error && jobs.results) {
     toRender = (
       <Box>
         {
-      jobs.results && jobs.results.map((i) => (
+      jobs?.results?.map((i) => (
         <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="lg" p="4" m="8">
           <Box display="flex">
             <Image
@@ -66,8 +72,8 @@ const Jobs = ({
               <Text fontSize="sm" color="green.400">
                 Salary:
                 {' '}
-                {`USD ${i.compensation.data.minHourlyUSD.toFixed(2)} to
-              USD ${i.compensation.data.maxHourlyUSD.toFixed(2)}`}
+                {`USD ${i.compensation?.data?.minHourlyUSD?.toFixed(2)} to
+              USD ${i.compensation?.data?.maxHourlyUSD?.toFixed(2)}`}
                 {' '}
                 hourly
               </Text>
@@ -76,6 +82,22 @@ const Jobs = ({
         </Box>
       ))
       }
+        <Paginator
+          currentPage={currentPage}
+          pagesQuantity={totalPages}
+          onPageChange={setCurrentPage}
+        >
+          <Container align="center" justify="space-between" w="full" p={4}>
+            <Previous>
+              Previous
+              {/* Or an icon from `react-icons` */}
+            </Previous>
+            <Next>
+              Next
+              {/* Or an icon from `react-icons` */}
+            </Next>
+          </Container>
+        </Paginator>
       </Box>
     );
   }
