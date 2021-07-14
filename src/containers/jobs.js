@@ -12,14 +12,12 @@ const Jobs = ({
   fetchJobs, jobs, fetching, error,
 }) => {
   useEffect(() => {
-    fetchJobs(1);
+    fetchJobs(2);
   }, []);
 
   let toRender;
 
   console.log('Jobs', jobs);
-
-  console.log('error', error.message);
 
   if (fetching) {
     toRender = <div>Loading</div>;
@@ -43,7 +41,7 @@ const Jobs = ({
           <Box textAlign="left" pl="4">
             <Text fontSize="md" pb="2">{i.objective}</Text>
             <Text fontSize="sm">{i.organizations[0].name}</Text>
-            <Text fontSize="sm" color="whiteAlpha.700">
+            <Text fontSize="sm">
               {`
                 ${i.remote ? 'Remote' : ''}
                 ${i.locations.length > 0 ? ` | ${i.locations[0]}` : ''}`}
@@ -53,7 +51,7 @@ const Jobs = ({
               {' '}
               {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
             </Text>
-            <Text fontSize="sm" color="green.500">
+            <Text fontSize="sm" color="green.400">
               Salary:
               {' '}
               {`USD ${i.compensation.data.minHourlyUSD.toFixed(2)} to
