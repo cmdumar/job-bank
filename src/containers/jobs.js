@@ -46,7 +46,9 @@ const Jobs = ({ fetchJobs, jobs, fetching }) => {
 
   return (
     <Container>
-      {toRender}
+      <Box>
+        {toRender}
+      </Box>
     </Container>
   );
 };
