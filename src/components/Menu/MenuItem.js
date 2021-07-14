@@ -1,10 +1,11 @@
-import { Text, Link } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const MenuItem = ({
   children, to,
 }) => (
-  <Link href={to}>
+  <Link to={`${to}`} display="block" width="100%">
     <Text display="block">
       {children}
     </Text>

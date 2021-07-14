@@ -1,0 +1,10 @@
+const types = {
+  SET_JOBS: 'SET_JOBS',
+  SET_PROFILES: 'SET_PROFILES',
+  SET_JOB: 'SET_JOB',
+  SET_PROFILE: 'SET_PROFILE',
+  SET_FETCHING: 'SET_FETCHING',
+  SET_ERRORS: 'SET_ERRORS',
+};
+
+export default types;
