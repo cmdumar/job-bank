@@ -4,10 +4,9 @@ import {
 import {
   object, bool, func, oneOfType, string, array,
 } from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import fetchJobs from '../redux/actions/jobs';
-import Pagination from '../components/pagination';
 
 const Jobs = ({
   fetchJobs, jobs, fetching, error,
@@ -18,13 +17,14 @@ const Jobs = ({
     fetchJobs(offset);
   }, [offset]);
 
-  const handlePageChange = (offset) => {
-    setOffset(offset);
-  };
+  // const callback = useCallback((offset) => {
+  //   setOffset(offset);
+  //   fetchJobs(offset);
+  // });
 
   let toRender;
 
-  // console.log('Jobs', jobs);
+  console.log('Jobs', jobs);
   console.log('Page', offset);
   // console.log('hello', jobs.total);
 
@@ -75,12 +75,7 @@ const Jobs = ({
           </Box>
         </Box>
       ))
-}
-        <Pagination
-          handlePageChange={handlePageChange}
-          dataLimit={15}
-          totalData={jobs.total && jobs.total}
-        />
+      }
       </Box>
     );
   }
