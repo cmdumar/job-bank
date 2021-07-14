@@ -11,8 +11,8 @@ const setJobs = (jobs) => ({
 const fetchJobs = (page) => async (dispatch) => {
   try {
     dispatch(setFetching(true));
-    const jobs = axios.post(`https://search.torre.co/opportunities/_search/?offset=${page}&size=15`, {});
-    if (jobs.data) {
+    const jobs = await axios.post(`https://search.torre.co/opportunities/_search/?offset=${page}&size=15`, {});
+    if (jobs.status === 200) {
       dispatch(setJobs(jobs.data));
       dispatch(setFetching(false));
     }
