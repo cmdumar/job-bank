@@ -6,7 +6,12 @@ import types from './types';
 const fetchProfile = (username) => async (dispatch) => {
   try {
     dispatch(setStatus('pending'));
-    const profile = await axios.get(`https://torre.bio/api/bios/${username}`);
+    const profile = await axios.get(`https://torre.bio/api/bios/${username}`, {
+      crossdomain: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
     if (profile.status === 200) {
       dispatch({
         payload: profile.data,

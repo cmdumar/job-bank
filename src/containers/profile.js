@@ -4,7 +4,9 @@ import {
 } from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Text } from '@chakra-ui/react';
+import {
+  Container, Box, Image, Text,
+} from '@chakra-ui/react';
 import fetchProfile from '../redux/actions/profile';
 
 const Profile = ({
@@ -14,7 +16,11 @@ const Profile = ({
 
   useEffect(() => {
     fetchProfile(username);
-  });
+  }, [username]);
+
+  console.log('error', error);
+  console.log('profile', profile);
+  console.log('status', status);
 
   if (status === 'rejected') {
     return (
@@ -26,11 +32,26 @@ const Profile = ({
 
   if (status === 'resolved') {
     console.log('Profile', profile);
+    const {
+      person: {
+        name, picture, professionalHeadline, location,
+      },
+    } = profile;
+
     return (
-      <Text>
-        This is
-        {username}
-      </Text>
+      <Container>
+        <Box display="flex" flexFlow="column">
+          <Image
+            src={picture}
+            boxSize="150px"
+            borderRadius="full"
+            alt={name}
+          />
+          <Text>{name}</Text>
+          <Text>{professionalHeadline}</Text>
+          <Text>{location.name}</Text>
+        </Box>
+      </Container>
     );
   }
 
@@ -51,7 +72,7 @@ Profile.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  profiles: state.profile,
+  profile: state.profile,
   status: state.status,
   error: state.error,
 });
