@@ -1,5 +1,3 @@
-Backend: https://github.com/mohammadumar28/cars-api
-
 # Job Bank
 
 > A Job Bank Web App where users can browse jobs and people in the market.
