@@ -34,7 +34,7 @@ const Job = ({
     );
   }
 
-  if (status === 'resolved') {
+  if (status === 'resolved' && job?.compensation) {
     const {
       objective, organizations, place: { remote, location },
       compensation: {

@@ -1,13 +1,16 @@
 import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { string } from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function Logo({ w }) {
   return (
     <Box w={w}>
-      <Text fontSize="lg" fontWeight="bold">
-        Job Bank
-      </Text>
+      <Link to="/">
+        <Text fontSize="2xl" fontWeight="bold">
+          Job Bank
+        </Text>
+      </Link>
     </Box>
   );
 }

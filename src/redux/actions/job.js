@@ -6,7 +6,7 @@ import types from './types';
 const fetchJob = (id) => async (dispatch) => {
   try {
     dispatch(setStatus('pending'));
-    const job = await axios.get(`https://torre.co/api/opportunities/${id}`);
+    const job = await axios.get(`https://boiling-mesa-43883.herokuapp.com/opprtunity/${id}`, { headers: { 'Access-Control-Allow-Origin': '*' } });
     if (job.status === 200) {
       dispatch({
         payload: job.data,
