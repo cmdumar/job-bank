@@ -45,7 +45,7 @@ const Profiles = ({
     return (
       <Container>
         <Box>
-          {profiles.results.map(({
+          {profiles?.results?.map(({
             subjectId, name, username, picture,
             professionalHeadline, openTo, locationName,
           }) => (
