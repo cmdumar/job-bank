@@ -18,10 +18,6 @@ const Profile = ({
     fetchProfile(username);
   }, [username]);
 
-  console.log('error', error);
-  console.log('profile', profile);
-  console.log('status', status);
-
   if (status === 'rejected') {
     return (
       <Text>
@@ -31,7 +27,6 @@ const Profile = ({
   }
 
   if (status === 'resolved' && profile?.person) {
-    console.log('Profile', profile);
     const {
       person: {
         name, picture, professionalHeadline, location,
