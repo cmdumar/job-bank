@@ -4,11 +4,13 @@ import job from './job';
 import status from './status';
 import error from './error';
 import profiles from './profiles';
+import profile from './profile';
 
 export default combineReducers({
   status,
   jobs,
   job,
-  error,
   profiles,
+  profile,
+  error,
 });
