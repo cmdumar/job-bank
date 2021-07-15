@@ -1,23 +1,19 @@
 /* eslint-disable no-unused-vars */
 import {
-  Container, Box, Text, Image, Center, Tag,
+  Container, Box, Text, Image, Tag,
 } from '@chakra-ui/react';
 import {
   string, array, object, func, oneOfType,
 } from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { IconContext } from 'react-icons';
 import { MdLocationOn } from 'react-icons/md';
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import {
-  Paginator,
-  Previous,
   usePaginator,
-  Next,
 } from 'chakra-paginator';
 import { Link } from 'react-router-dom';
 import fetchProfiles from '../redux/actions/profiles';
+import Pagination from '../components/Pagination';
 
 const Profiles = ({
   profiles, status, error, fetchProfiles,
@@ -46,8 +42,6 @@ const Profiles = ({
   }
 
   if (status === 'resolved') {
-    console.log('Profiles', profiles);
-
     return (
       <Container>
         <Box>
@@ -88,30 +82,11 @@ const Profiles = ({
               </Link>
             </Box>
           ))}
-          <Paginator
+          <Pagination
+            totalPages={totalPages}
             currentPage={currentPage}
-            pagesQuantity={totalPages}
-            onPageChange={setCurrentPage}
-          >
-            <Container display="flex" justifyContent="space-between" w="full" p={4}>
-              <Previous>
-                <IconContext.Provider value={{ className: 'pagination-btn' }}>
-                  <GrFormPrevious />
-                </IconContext.Provider>
-                <Text>
-                  Previous
-                </Text>
-              </Previous>
-              <Next>
-                <Text>
-                  Next
-                </Text>
-                <IconContext.Provider value={{ className: 'pagination-btn' }}>
-                  <GrFormNext />
-                </IconContext.Provider>
-              </Next>
-            </Container>
-          </Paginator>
+            setCurrentPage={setCurrentPage}
+          />
         </Box>
       </Container>
     );

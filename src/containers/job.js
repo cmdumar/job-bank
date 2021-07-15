@@ -24,7 +24,7 @@ const Job = ({
 }) => {
   const { id } = useParams();
 
-  useEffect(async () => {
+  useEffect(() => {
     fetchJob(id);
   }, [id]);
 
@@ -124,7 +124,7 @@ const Job = ({
                   boxSize="100px"
                   mx="auto"
                   src={picture}
-                  alt="Segun Adebayo"
+                  alt={`${name} Photo`}
                   mb="4"
                 />
                 <Text fontSize="md" fontWeight="500">{name}</Text>

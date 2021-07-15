@@ -6,16 +6,12 @@ import {
 } from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { IconContext } from 'react-icons';
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import {
-  Paginator,
-  Previous,
   usePaginator,
-  Next,
 } from 'chakra-paginator';
 import { Link } from 'react-router-dom';
 import fetchJobs from '../redux/actions/jobs';
+import Pagination from '../components/Pagination';
 
 const Jobs = ({
   fetchJobs, jobs, status, error,
@@ -99,30 +95,11 @@ const Jobs = ({
         </Box>
       ))
       }
-        <Paginator
+        <Pagination
           currentPage={currentPage}
-          pagesQuantity={totalPages}
-          onPageChange={setCurrentPage}
-        >
-          <Container display="flex" justifyContent="space-between" w="full" p={4}>
-            <Previous>
-              <IconContext.Provider value={{ className: 'pagination-btn' }}>
-                <GrFormPrevious />
-              </IconContext.Provider>
-              <Text>
-                Previous
-              </Text>
-            </Previous>
-            <Next>
-              <Text>
-                Next
-              </Text>
-              <IconContext.Provider value={{ className: 'pagination-btn' }}>
-                <GrFormNext />
-              </IconContext.Provider>
-            </Next>
-          </Container>
-        </Paginator>
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
       </Box>
     );
   }
