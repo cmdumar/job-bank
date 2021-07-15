@@ -49,7 +49,7 @@ const Profile = ({
             <Text pt="1">{location.name}</Text>
             <Text>
               Languages
-              {languages?.map((lan) => ` - ${lan.language.name} (${lan.fluency})`)}
+              {languages?.map((lan) => ` - ${lan.language} (${lan.fluency})`)}
             </Text>
             <Box py="2">
               <Text>{summaryOfBio}</Text>

@@ -7,8 +7,8 @@ export default function Logo({ w }) {
   return (
     <Box w={w}>
       <Link to="/">
-        <Text fontSize="lg" fontWeight="bold">
-          Torre Job Bank
+        <Text fontSize="2xl" fontWeight="bold">
+          Job Bank
         </Text>
       </Link>
     </Box>
