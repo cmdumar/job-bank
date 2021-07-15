@@ -36,23 +36,29 @@ const Job = ({
     console.log('error', error);
   }
 
+  const { objective, organizations, place: { remote, location } } = job;
+
   return (
     <Container maxW="container.md">
       <Box>
         <Image
-          src="https://res.cloudinary.com/torre-technologies-co/image/upload/v1600923720/origin/bio/organizations/Makers_okpnh5.png"
-          boxSize="200px"
+          src={organizations[0].picture}
+          boxSize="130px"
           fit="cover"
           alt="company logo"
         />
+        <Text pt="2" fontSize="sm">{organizations[0].name}</Text>
       </Box>
       <Box py="4">
         <Heading as="h1" size="md" pb="4">
-          Front-End Developer
+          {objective}
         </Heading>
         <Box display="flex" alignItems="center" fontWeight="300">
           <MdLocationOn />
-          <Text fontSize="sm" pl="2">United States</Text>
+          <Text fontSize="sm" pl="2">
+            {remote ? 'Remote' : ''}
+            {location?.map((l) => ` - ${l.id} `)}
+          </Text>
         </Box>
         <Box display="flex" alignItems="center" pt="2" fontWeight="300">
           <GiMoneyStack />
