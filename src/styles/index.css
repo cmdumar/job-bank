@@ -4,6 +4,16 @@ body {
   height: 100%;
 }
 
+p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  padding-top: 10px;
+  list-style: none;
+}
+
 .pagination-btn polyline {
   stroke: white;
 }
