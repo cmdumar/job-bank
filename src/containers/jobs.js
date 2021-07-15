@@ -1,8 +1,8 @@
 import {
-  Box, Container, Image, Text,
+  Box, Container, Image, Tag, Text, useColorModeValue,
 } from '@chakra-ui/react';
 import {
-  object, bool, func, oneOfType, string, array,
+  object, func, oneOfType, string, array,
 } from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -18,11 +18,13 @@ import { Link } from 'react-router-dom';
 import fetchJobs from '../redux/actions/jobs';
 
 const Jobs = ({
-  fetchJobs, jobs, fetching, error,
+  fetchJobs, jobs, status, error,
 }) => {
   const { currentPage, setCurrentPage } = usePaginator({
     initialState: { currentPage: 1 },
   });
+
+  const jobTitleColor = useColorModeValue('blue.800', 'blue.300');
 
   useEffect(async () => {
     if (currentPage === 1) fetchJobs(0);
@@ -37,20 +39,20 @@ const Jobs = ({
 
   let toRender;
 
-  if (fetching) {
+  if (status === 'pending') {
     toRender = <Text>Loading...</Text>;
   }
 
-  if (!fetching && error) {
+  if (status === 'rejected') {
     toRender = <Text>{error.message}</Text>;
   }
 
-  if (!fetching && !error && jobs.results) {
+  if (status === 'resolved') {
     toRender = (
       <Box>
         {
       jobs?.results?.map((i) => (
-        <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="lg" p="4" m="8">
+        <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="sm" p="4" m="8">
           <Link to={`/jobs/${i.id}`}>
             <Box display="flex">
               <Image
@@ -61,19 +63,22 @@ const Jobs = ({
                 alt="company logo"
               />
               <Box textAlign="left" pl="4">
-                <Text fontSize="md" pb="2">{i.objective}</Text>
-                <Text fontSize="sm">{i.organizations[0].name}</Text>
-                <Text fontSize="sm">
+                <Text fontSize="lg" pb="1" color={jobTitleColor} fontWeight="500">{i.objective}</Text>
+                <Text fontSize="sm" pb="1">
+                  <Text display="inline" color="gray.500" as="span">at </Text>
+                  {i.organizations[0].name}
+                </Text>
+                <Text fontSize="sm" pb="1">
                   {`
                   ${i.remote ? 'Remote' : ''}
                   ${i.locations.length > 0 ? ` | ${i.locations[0]}` : ''}`}
                 </Text>
-                <Text fontSize="sm">
+                <Text fontSize="sm" pb="1">
                   Posted on
                   {' '}
                   {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
                 </Text>
-                <Text fontSize="sm" color="green.400">
+                <Text fontSize="sm" color="green.400" pb="1">
                   Salary:
                   {' '}
                   {`USD ${i.compensation?.data?.minHourlyUSD?.toFixed(2)} to
@@ -81,6 +86,13 @@ const Jobs = ({
                   {' '}
                   hourly
                 </Text>
+                <Box>
+                  {i.skills.slice().map((skill) => (
+                    <Tag key={skill.name} my="1" mr="1" colorScheme="messenger">
+                      {skill.name}
+                    </Tag>
+                  ))}
+                </Box>
               </Box>
             </Box>
           </Link>
@@ -116,7 +128,7 @@ const Jobs = ({
   }
 
   return (
-    <Container>
+    <Container maxW="container.md">
       <Box>
         {toRender}
       </Box>
@@ -128,7 +140,7 @@ Jobs.propTypes = {
   fetchJobs: func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   jobs: object.isRequired,
-  fetching: bool.isRequired,
+  status: string.isRequired,
   error: oneOfType([string, object, array]),
 };
 
@@ -138,7 +150,7 @@ Jobs.defaultProps = {
 
 const mapStateToProps = (state) => ({
   jobs: state.jobs,
-  fetching: state.fetching,
+  status: state.status,
   error: state.error,
 });
 

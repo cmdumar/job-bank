@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import jobs from './jobs';
-import fetching from './fetching';
+import job from './job';
+import status from './status';
 import error from './error';
 
 export default combineReducers({
+  status,
   jobs,
-  fetching,
+  job,
   error,
 });

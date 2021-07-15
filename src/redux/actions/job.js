@@ -3,14 +3,14 @@ import setError from './error';
 import setStatus from './status';
 import types from './types';
 
-const fetchJobs = (page) => async (dispatch) => {
+const fetchJob = (id) => async (dispatch) => {
   try {
     dispatch(setStatus('pending'));
-    const jobs = await axios.post(`https://search.torre.co/opportunities/_search/?offset=${page}&size=15`, {});
-    if (jobs.status === 200) {
+    const job = await axios.get(`https://torre.co/api/opportunities/${id}`);
+    if (job.status === 200) {
       dispatch({
-        payload: jobs.data,
-        type: types.SET_JOBS,
+        payload: job.data,
+        type: types.SET_JOB,
       });
       dispatch(setStatus('resolved'));
     }
@@ -20,4 +20,4 @@ const fetchJobs = (page) => async (dispatch) => {
   }
 };
 
-export default fetchJobs;
+export default fetchJob;

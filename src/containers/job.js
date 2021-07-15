@@ -1,55 +1,163 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  Container, Box, Text, Image, Heading, Divider,
+  Container, Box, Text, Image, Heading, Divider, SimpleGrid, Tag, HStack,
 } from '@chakra-ui/react';
 import { MdLocationOn } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
+import { GiMoneyStack } from 'react-icons/gi';
+import { FaLanguage } from 'react-icons/fa';
+import {
+  object, func, oneOfType, string, array,
+} from 'prop-types';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import fetchJob from '../redux/actions/job';
 
-const Job = () => {
-  const [title, setTitle] = useState('Front-End Dev');
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 
-  console.log('title', title);
-  console.log('set', setTitle);
+const Job = ({
+  fetchJob, job, status, error,
+}) => {
+  const { id } = useParams();
+
+  useEffect(async () => {
+    fetchJob(id);
+  }, [id]);
+
+  if (status === 'rejected') {
+    return (
+      <Text>{error.message}</Text>
+    );
+  }
+
+  if (status === 'resolved') {
+    const {
+      objective, organizations, place: { remote, location },
+      compensation: {
+        currency, minAmount, maxAmount, periodicity,
+      }, created,
+      languages, strengths, serpTags: { description },
+      details, members,
+    } = job;
+
+    return (
+      <Container maxW="container.md">
+        <Box>
+          <Image
+            src={organizations[0].picture}
+            boxSize="130px"
+            fit="cover"
+            alt="company logo"
+          />
+          <Text pt="2" fontSize="sm">{organizations[0].name}</Text>
+        </Box>
+        <Box py="4">
+          <Heading as="h1" size="md" pb="4">
+            {objective}
+          </Heading>
+          <Box display="flex" alignItems="center" fontWeight="300">
+            <MdLocationOn />
+            <Text fontSize="sm" pl="2">
+              {remote ? 'Remote' : ''}
+              {location?.map((l) => ` - ${l.id} `)}
+            </Text>
+          </Box>
+          <Box display="flex" alignItems="center" pt="2" fontWeight="300">
+            <GiMoneyStack />
+            <Text fontSize="sm" pl="2">
+              Salary:
+              {` ${currency} ${numberWithCommas(minAmount)} to ${numberWithCommas(maxAmount)}`}
+              {' '}
+              {periodicity}
+            </Text>
+          </Box>
+          <Box display="flex" alignItems="center" pt="2" fontWeight="300">
+            <AiOutlineClockCircle />
+            <Text fontSize="sm" pl="2">
+              Posted on
+              {` ${new Date(created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}`}
+            </Text>
+          </Box>
+          <Box display="flex" alignItems="center" pt="2" fontWeight="300">
+            <FaLanguage />
+            <Text fontSize="sm" pl="2">
+              Language(s)
+              {languages?.map((lan) => ` - ${lan.language.name} (${lan.fluency})`)}
+            </Text>
+          </Box>
+        </Box>
+        <Divider />
+        <Box py="4">
+          {strengths?.map((str) => (
+            <Tag key={str.id} size="md" colorScheme="red" borderRadius="full" m="1">
+              {str.name}
+            </Tag>
+          ))}
+        </Box>
+        <Divider />
+        <Box py="4">
+          <Heading as="h3" size="sm" fontWeight="600">DESCRIPTION</Heading>
+          <Text pt="2">
+            {details?.filter((obj) => obj.code === 'organizations')[0].content}
+          </Text>
+        </Box>
+        <Divider />
+        <Box py="4">
+          <Heading as="h3" size="sm" fontWeight="600">RESPONSIBILITIES</Heading>
+          <Text
+            pt="2"
+            dangerouslySetInnerHTML={{ __html: details?.filter((obj) => obj.code === 'requirements')[0].content.split('.').join('<br />') }}
+          />
+        </Box>
+        <Divider />
+        <Box py="4">
+          <Heading as="h3" size="sm" fontWeight="600">YOU'LL BE WORKING WITH</Heading>
+          <SimpleGrid minChildWidth="200px" spacing="20px" pt="3">
+            {members?.map(({ id, person: { name, picture, professionalHeadline } }) => (
+              <Box key={id} bg="gray.100" color="black" p="8" pb="12" borderRadius="md" w="100%" textAlign="center">
+                <Image
+                  borderRadius="full"
+                  boxSize="100px"
+                  mx="auto"
+                  src={picture}
+                  alt="Segun Adebayo"
+                  mb="4"
+                />
+                <Text fontSize="md" fontWeight="500">{name}</Text>
+                <Text fontSize="sm">{professionalHeadline}</Text>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Box>
+      </Container>
+    );
+  }
 
   return (
-    <Container>
-      <Box>
-        <Image
-          src="https://res.cloudinary.com/torre-technologies-co/image/upload/v1600923720/origin/bio/organizations/Makers_okpnh5.png"
-          boxSize="200px"
-          fit="cover"
-          alt="company logo"
-        />
-      </Box>
-      <Box py="4">
-        <Heading as="h1" size="md" pb="4">
-          Front-End Developer
-        </Heading>
-        <Box display="flex" alignItems="center" fontWeight="300">
-          <MdLocationOn />
-          <Text fontSize="sm" pl="2">United States</Text>
-        </Box>
-        <Box display="flex" alignItems="center" pt="2" fontWeight="300">
-          <AiOutlineClockCircle />
-          <Text fontSize="sm" pl="2">Posted on July 14</Text>
-        </Box>
-      </Box>
-      <Divider />
-      <Box pt="4">
-        <Heading as="h3" size="sm" fontWeight="600">DESCRIPTION</Heading>
-        <Text pt="2">
-          The Faulkner Automotive Group is looking for an enthusiastic,
-          self-motivated Lot Attendant to join our team! Faulkner is a place you
-          can establish a career and grow with the organization. We provide training
-          to all of our employees and offer continued growth opportunities for those
-          that have excellent talent, energy and ambition to succeed. We offer a top-tier
-          benefits package to all full-time employees, including Medical,
-          Dental, Vision, 401K plus company match, Employee Referral Bonuses and Paid Vacation.
-        </Text>
-      </Box>
-    </Container>
+    <Text>Loading...</Text>
   );
 };
 
-export default Job;
+Job.propTypes = {
+  fetchJob: func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  job: object.isRequired,
+  status: string.isRequired,
+  error: oneOfType([string, object, array]),
+};
+
+Job.defaultProps = {
+  error: null,
+};
+
+const mapStateToProps = (state) => ({
+  job: state.job,
+  status: state.status,
+  error: state.error,
+});
+
+export default connect(mapStateToProps, { fetchJob })(Job);
