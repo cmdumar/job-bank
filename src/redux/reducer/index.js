@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import jobs from './jobs';
 import job from './job';
-import fetching from './fetching';
+import status from './status';
 import error from './error';
 
 export default combineReducers({
-  fetching,
+  status,
   jobs,
   job,
   error,

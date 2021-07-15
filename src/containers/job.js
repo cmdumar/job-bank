@@ -9,14 +9,14 @@ import { AiOutlineClockCircle } from 'react-icons/ai';
 import { GiMoneyStack } from 'react-icons/gi';
 import { FaLanguage } from 'react-icons/fa';
 import {
-  object, bool, func, oneOfType, string, array,
+  object, func, oneOfType, string, array,
 } from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import fetchJob from '../redux/actions/job';
 
 const Job = ({
-  fetchJob, job, fetching, error,
+  fetchJob, job, status, error,
 }) => {
   const { id } = useParams();
 
@@ -24,20 +24,15 @@ const Job = ({
     fetchJob(id);
   }, [id]);
 
-  // console.log('fetch', fetching);
-  // console.log('Job', job);
-  // console.log('error', error);
-  // console.log('id', id);
-
-  if (fetching === 'pending') {
-    console.log('pending', fetching);
+  if (status === 'pending') {
+    console.log('pending', status);
   }
 
-  if (fetching === 'resolved') {
+  if (status === 'resolved') {
     console.log('resolved', job);
   }
 
-  if (fetching === 'rejected') {
+  if (status === 'rejected') {
     console.log('error', error);
   }
 
@@ -175,7 +170,7 @@ Job.propTypes = {
   fetchJob: func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   job: object.isRequired,
-  fetching: string.isRequired,
+  status: string.isRequired,
   error: oneOfType([string, object, array]),
 };
 
@@ -185,7 +180,7 @@ Job.defaultProps = {
 
 const mapStateToProps = (state) => ({
   job: state.job,
-  fetching: state.fetching,
+  status: state.status,
   error: state.error,
 });
 

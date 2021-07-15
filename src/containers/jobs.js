@@ -2,7 +2,7 @@ import {
   Box, Container, Image, Tag, Text, useColorModeValue,
 } from '@chakra-ui/react';
 import {
-  object, bool, func, oneOfType, string, array,
+  object, func, oneOfType, string, array,
 } from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import fetchJobs from '../redux/actions/jobs';
 
 const Jobs = ({
-  fetchJobs, jobs, fetching, error,
+  fetchJobs, jobs, status, error,
 }) => {
   const { currentPage, setCurrentPage } = usePaginator({
     initialState: { currentPage: 1 },
@@ -39,15 +39,15 @@ const Jobs = ({
 
   let toRender;
 
-  if (fetching) {
+  if (status === 'pending') {
     toRender = <Text>Loading...</Text>;
   }
 
-  if (!fetching && error) {
+  if (status === 'rejected') {
     toRender = <Text>{error.message}</Text>;
   }
 
-  if (!fetching && !error && jobs.results) {
+  if (status === 'resolved') {
     toRender = (
       <Box>
         {
@@ -140,7 +140,7 @@ Jobs.propTypes = {
   fetchJobs: func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   jobs: object.isRequired,
-  fetching: bool.isRequired,
+  status: string.isRequired,
   error: oneOfType([string, object, array]),
 };
 
@@ -150,7 +150,7 @@ Jobs.defaultProps = {
 
 const mapStateToProps = (state) => ({
   jobs: state.jobs,
-  fetching: state.fetching,
+  status: state.status,
   error: state.error,
 });
 
