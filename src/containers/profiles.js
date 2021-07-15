@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Container, Box, Text } from '@chakra-ui/react';
+import {
+  Container, Box, Text, Image, Center, Tag,
+} from '@chakra-ui/react';
 import {
   string, array, object, func, oneOfType,
 } from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { IconContext } from 'react-icons';
+import { MdLocationOn } from 'react-icons/md';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import {
   Paginator,
@@ -49,11 +52,39 @@ const Profiles = ({
       <Container>
         <Box>
           {profiles.results.map(({
-            subjectId, name, username,
+            subjectId, name, username, picture,
+            professionalHeadline, openTo, locationName,
           }) => (
             <Box key={subjectId} maxW="full" borderWidth="1px" borderRadius="sm" p="4" m="8">
               <Link to={`/profiles/${username}`}>
-                {name}
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  flexFlow="column"
+                  alignItems="center"
+                  textAlign="center"
+                >
+                  <Image
+                    src={picture}
+                    boxSize="150px"
+                    borderRadius="full"
+                  />
+                  <Text fontSize="lg" fontWeight="600" pt="4">
+                    {name}
+                  </Text>
+                  <Text fontSize="md" pt="2">{professionalHeadline}</Text>
+                  <Box display="flex" alignItems="center" pt="2">
+                    <MdLocationOn />
+                    <Text pl="1" fontSize="xs">{locationName}</Text>
+                  </Box>
+                  <Box pt="2">
+                    {openTo.map((job) => (
+                      <Tag key={job} colorScheme="green" my="1" mr="1">
+                        {job}
+                      </Tag>
+                    ))}
+                  </Box>
+                </Box>
               </Link>
             </Box>
           ))}
