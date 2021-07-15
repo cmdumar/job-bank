@@ -12,8 +12,11 @@ const Routes = () => (
     <Route path="/jobs/:id">
       <Job />
     </Route>
-    <Route path="/profiles">
+    <Route exact path="/profiles">
       <Profiles />
+    </Route>
+    <Route path="/profiles/:username">
+      <div>THis is profile page</div>
     </Route>
   </Switch>
 );
