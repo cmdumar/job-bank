@@ -6,7 +6,7 @@ import types from './types';
 const fetchProfile = (username) => async (dispatch) => {
   try {
     dispatch(setStatus('pending'));
-    const profile = await axios.get(`https://boiling-mesa-43883.herokuapp.com/${username}`, {
+    const profile = await axios.get(`https://boiling-mesa-43883.herokuapp.com/profiles/${username}`, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
