@@ -30,7 +30,7 @@ const Profile = ({
     );
   }
 
-  if (status === 'resolved') {
+  if (status === 'resolved' && profile?.person) {
     console.log('Profile', profile);
     const {
       person: {
