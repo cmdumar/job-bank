@@ -6,11 +6,28 @@
 
 ![Screenshot](screenshot.png)
 
+## Features
+
+* Dark mode available
+* Browse Jobs
+* Individual job page
+* Explore People
+* Individual profile page
+* Pagination
+* Routing 
+
 ## Built With
+
+### Frontend
 
 - React, Redux
 - Chakra UI
 - CRA, npm, yarn
+
+### Backend
+
+- Ruby on Rails
+- Postgresql
 
 ## Live Demo
 
