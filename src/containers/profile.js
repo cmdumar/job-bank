@@ -5,7 +5,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
-  Container, Box, Image, Text,
+  Container, Box, Image, Text, Grid, Heading,
 } from '@chakra-ui/react';
 import fetchProfile from '../redux/actions/profile';
 
@@ -39,18 +39,21 @@ const Profile = ({
     } = profile;
 
     return (
-      <Container>
-        <Box display="flex" flexFlow="column">
-          <Image
-            src={picture}
-            boxSize="150px"
-            borderRadius="full"
-            alt={name}
-          />
-          <Text>{name}</Text>
-          <Text>{professionalHeadline}</Text>
-          <Text>{location.name}</Text>
-        </Box>
+      <Container maxW="container.lg">
+        <Grid gridTemplateColumns="300px 1fr">
+          <Box>
+            <Image
+              src={picture}
+              boxSize="250px"
+              alt={name}
+            />
+          </Box>
+          <Box>
+            <Heading as="h2" size="lg" fontWeight="500" pb="4">{name}</Heading>
+            <Text>{professionalHeadline}</Text>
+            <Text>{location.name}</Text>
+          </Box>
+        </Grid>
       </Container>
     );
   }
