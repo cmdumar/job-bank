@@ -15,6 +15,10 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import fetchJob from '../redux/actions/job';
 
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 const Job = ({
   fetchJob, job, status, error,
 }) => {
@@ -36,7 +40,10 @@ const Job = ({
     console.log('error', error);
   }
 
-  const { objective, organizations, place: { remote, location } } = job;
+  const {
+    objective, organizations, place: { remote, location },
+    compensation: { currency, minAmount, maxAmount },
+  } = job;
 
   return (
     <Container maxW="container.md">
@@ -62,7 +69,10 @@ const Job = ({
         </Box>
         <Box display="flex" alignItems="center" pt="2" fontWeight="300">
           <GiMoneyStack />
-          <Text fontSize="sm" pl="2">Salary: $14 hourly</Text>
+          <Text fontSize="sm" pl="2">
+            Salary:
+            {` ${currency} ${numberWithCommas(minAmount)} to ${numberWithCommas(maxAmount)}`}
+          </Text>
         </Box>
         <Box display="flex" alignItems="center" pt="2" fontWeight="300">
           <AiOutlineClockCircle />
