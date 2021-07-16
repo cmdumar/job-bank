@@ -2,6 +2,8 @@
 
 > A Job Bank Web App where users can browse jobs and people in the market.
 
+## [Video Presentation](https://www.loom.com/share/38bc6467650343aabcd023790bdd7013)
+
 ## Screenshot
 
 ![Screenshot](screenshot.png)
