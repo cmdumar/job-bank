@@ -2,7 +2,6 @@
   "name": "job-bank",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mohammadumar28.github.io/job-bank/",
   "dependencies": {
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.0.0",
@@ -13,7 +12,6 @@
     "axios": "^0.21.1",
     "chakra-paginator": "^0.7.2",
     "framer-motion": "^4.0.0",
-    "gh-pages": "^3.2.3",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -29,9 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
