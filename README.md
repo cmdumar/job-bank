@@ -11,6 +11,7 @@
 ## Features
 
 * Dark mode available
+* Responsive Layout
 * Browse Jobs
 * Individual job page
 * Explore People
