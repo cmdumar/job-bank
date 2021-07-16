@@ -1,8 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
-  Container, Box, Text, Image, Heading, Divider, SimpleGrid, Tag, HStack,
+  Container, Box, Text, Image, Heading, Divider, SimpleGrid, Tag,
 } from '@chakra-ui/react';
 import { MdLocationOn } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
@@ -40,7 +38,7 @@ const Job = ({
       compensation: {
         currency, minAmount, maxAmount, periodicity,
       }, created,
-      languages, strengths, serpTags: { description },
+      languages, strengths,
       details, members,
     } = job;
 
@@ -115,7 +113,7 @@ const Job = ({
         </Box>
         <Divider />
         <Box py="4">
-          <Heading as="h3" size="sm" fontWeight="600">YOU'LL BE WORKING WITH</Heading>
+          <Heading as="h3" size="sm" fontWeight="600">YOU&apos;LL BE WORKING WITH</Heading>
           <SimpleGrid minChildWidth="200px" spacing="20px" pt="3">
             {members?.map(({ id, person: { name, picture, professionalHeadline } }) => (
               <Box key={id} bg="gray.100" color="black" p="8" pb="12" borderRadius="md" w="100%" textAlign="center">
@@ -138,7 +136,9 @@ const Job = ({
   }
 
   return (
-    <Text>Loading...</Text>
+    <Container>
+      <Heading as="h1" size="lg">Loading...</Heading>
+    </Container>
   );
 };
 

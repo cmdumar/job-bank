@@ -1,5 +1,5 @@
 import {
-  Box, Container, Image, Tag, Text, useColorModeValue,
+  Box, Container, Image, Tag, Text, useColorModeValue, Heading,
 } from '@chakra-ui/react';
 import {
   object, func, oneOfType, string, array,
@@ -36,7 +36,9 @@ const Jobs = ({
   let toRender;
 
   if (status === 'pending') {
-    toRender = <Text>Loading...</Text>;
+    toRender = (
+      <Heading as="h1" size="lg">Loading...</Heading>
+    );
   }
 
   if (status === 'rejected') {

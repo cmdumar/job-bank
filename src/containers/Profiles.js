@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import {
-  Container, Box, Text, Image, Tag,
+  Container, Box, Text, Image, Tag, Heading,
 } from '@chakra-ui/react';
 import {
   string, array, object, func, oneOfType,
@@ -94,9 +93,7 @@ const Profiles = ({
 
   return (
     <Container>
-      <Box>
-        <Text>Loading...</Text>
-      </Box>
+      <Heading as="h1" size="lg">Loading...</Heading>
     </Container>
   );
 };

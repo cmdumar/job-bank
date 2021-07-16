@@ -73,7 +73,9 @@ const Profile = ({
   }
 
   return (
-    <Text>Loading...</Text>
+    <Container>
+      <Heading as="h1" size="lg">Loading...</Heading>
+    </Container>
   );
 };
 
