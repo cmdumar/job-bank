@@ -48,10 +48,10 @@ const Jobs = ({
   if (status === 'resolved') {
     toRender = (
       <>
-        <div className={styles.container}>
+        <section className={styles.container}>
           {
       jobs?.results?.map((i) => (
-        <div key={i.id} className={styles.job_card}>
+        <article key={i.id} className={styles.job_card}>
           <Link to={`/jobs/${i.id}`}>
             <div className={styles.flexbox}>
               <img
@@ -83,35 +83,35 @@ const Jobs = ({
                   {' '}
                   hourly
                 </p>
-                <Box>
+                <div>
                   {i.skills.slice().map((skill) => (
-                    <Tag key={skill.name} my="1" mr="1" colorScheme="messenger">
+                    <p key={skill.name} className={styles.tag}>
                       {skill.name}
-                    </Tag>
+                    </p>
                   ))}
-                </Box>
+                </div>
               </div>
             </div>
           </Link>
-        </div>
+        </article>
       ))
       }
-        </div>
-        <Box>
+        </section>
+        <section>
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}
           />
-        </Box>
+        </section>
       </>
     );
   }
 
   return (
-    <div>
+    <section>
       {toRender}
-    </div>
+    </section>
   );
 };
 

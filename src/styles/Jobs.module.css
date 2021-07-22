@@ -45,15 +45,26 @@
   padding-bottom: 5px;
 }
 
-.company_name span {
-  color: gray;
-}
-
 .salary {
   color: #48bb78;
   font-size: 14px;
   font-weight: 500;
   padding-bottom: 7px;
+}
+
+.tag {
+  display: inline-flex;
+  font-size: 13px;
+  border: 1px solid #b9daff;
+  border-radius: 4px;
+  color: #003c7e;
+  background-color: #b9daff;
+  margin: 3px 2px;
+  padding: 3px 5px;
+}
+
+.company_name span {
+  color: gray;
 }
 
 @media only screen and (max-width: 1200px) {
