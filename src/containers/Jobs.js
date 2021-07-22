@@ -22,8 +22,6 @@ const Jobs = ({
     initialState: { currentPage: 1 },
   });
 
-  const jobTitleColor = useColorModeValue('blue.800', 'blue.300');
-
   useEffect(async () => {
     if (currentPage === 1) fetchJobs(0);
   }, [currentPage]);
@@ -55,36 +53,36 @@ const Jobs = ({
       jobs?.results?.map((i) => (
         <div key={i.id} className={styles.job_card}>
           <Link to={`/jobs/${i.id}`}>
-            <Box display="flex">
+            <div className={styles.flexbox}>
               <img
                 className={styles.logo}
                 src={i.organizations[0].picture}
                 alt="company logo"
               />
-              <Box textAlign="left" pl="4">
-                <Text fontSize="lg" pb="1" color={jobTitleColor} fontWeight="500">{i.objective}</Text>
-                <Text fontSize="sm" pb="1">
-                  <Text display="inline" color="gray.500" as="span">at </Text>
+              <div className={styles.pl_4}>
+                <h3 className={styles.job_title}>{i.objective}</h3>
+                <p className={styles.company_name}>
+                  <span>at </span>
                   {i.organizations[0].name}
-                </Text>
-                <Text fontSize="sm" pb="1">
+                </p>
+                <p className={styles.location}>
                   {`
                   ${i.remote ? 'Remote' : ''}
                   ${i.locations.length > 0 ? ` | ${i.locations[0]}` : ''}`}
-                </Text>
-                <Text fontSize="sm" pb="1">
+                </p>
+                <p className={styles.date}>
                   Posted on
                   {' '}
                   {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
-                </Text>
-                <Text fontSize="sm" color="green.400" pb="1">
+                </p>
+                <p className={styles.salary}>
                   Salary:
                   {' '}
                   {`USD ${i.compensation?.data?.minHourlyUSD?.toFixed(2)} to
                 USD ${i.compensation?.data?.maxHourlyUSD?.toFixed(2)}`}
                   {' '}
                   hourly
-                </Text>
+                </p>
                 <Box>
                   {i.skills.slice().map((skill) => (
                     <Tag key={skill.name} my="1" mr="1" colorScheme="messenger">
@@ -92,8 +90,8 @@ const Jobs = ({
                     </Tag>
                   ))}
                 </Box>
-              </Box>
-            </Box>
+              </div>
+            </div>
           </Link>
         </div>
       ))

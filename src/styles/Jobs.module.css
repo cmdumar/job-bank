@@ -6,7 +6,7 @@
 
 .job_card {
   padding: 1rem;
-  border: 1px solid #ffffff29;
+  border: 1px solid #38444d;
   border-radius: 4px;
 }
 
@@ -15,6 +15,45 @@
   height: 50px;
   width: 50px;
   object-fit: cover;
+}
+
+.flexbox {
+  display: flex;
+}
+
+.pl_4 {
+  padding-left: 0.5rem;
+}
+
+.job_title {
+  font-weight: 700;
+  padding-bottom: 7px;
+}
+
+.company_name {
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+
+.location {
+  font-size: 15px;
+  padding-bottom: 3px;
+}
+
+.date {
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.company_name span {
+  color: gray;
+}
+
+.salary {
+  color: #48bb78;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 7px;
 }
 
 @media only screen and (max-width: 1200px) {
