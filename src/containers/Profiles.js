@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import fetchProfiles from '../redux/actions/profiles';
 import Pagination from '../components/Pagination';
 import styles from '../styles/Profiles.module.css';
-import global from '../styles/index.module.css';
+import global from '../styles/Global.module.css';
 import setSearchInput from '../redux/actions/search';
 
 const Profiles = ({
@@ -33,10 +33,10 @@ const Profiles = ({
 
   useEffect(async () => {
     if (currentPage === 1) return;
-    await fetchProfiles((currentPage - 1) * 15);
+    await fetchProfiles((currentPage - 1) * 50);
   }, [currentPage]);
 
-  const totalPages = Math.round((profiles.total + 15 - 1) / 15);
+  const totalPages = Math.round((profiles.total + 50 - 1) / 50);
 
   if (status === 'rejected') {
     return (

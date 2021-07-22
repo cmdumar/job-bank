@@ -8,7 +8,7 @@ import {
 } from 'chakra-paginator';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Jobs.module.css';
-import global from '../styles/index.module.css';
+import global from '../styles/Global.module.css';
 import fetchJobs from '../redux/actions/jobs';
 import Pagination from '../components/Pagination';
 import setSearchInput from '../redux/actions/search';
@@ -34,10 +34,10 @@ const Jobs = ({
 
   useEffect(async () => {
     if (currentPage === 1) return;
-    await fetchJobs((currentPage - 1) * 15);
+    await fetchJobs((currentPage - 1) * 50);
   }, [currentPage]);
 
-  const totalPages = Math.round((jobs.total + 15 - 1) / 15);
+  const totalPages = Math.round((jobs.total + 50 - 1) / 50);
 
   if (status === 'rejected') {
     return (
