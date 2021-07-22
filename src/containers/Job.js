@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom';
 import fetchJob from '../redux/actions/job';
 
 function numberWithCommas(x) {
+  if (!x) return undefined;
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
@@ -37,7 +38,7 @@ const Job = ({
       objective, organizations, place: { remote, location },
       compensation: {
         currency, minAmount, maxAmount, periodicity,
-      }, created,
+      },
       languages, strengths,
       details, members,
     } = job;
@@ -77,7 +78,7 @@ const Job = ({
             <AiOutlineClockCircle />
             <Text fontSize="sm" pl="2">
               Posted on
-              {` ${new Date(created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}`}
+              {` ${new Date(job?.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}`}
             </Text>
           </Box>
           <Box display="flex" alignItems="center" pt="2" fontWeight="300">
