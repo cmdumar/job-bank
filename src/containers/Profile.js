@@ -41,12 +41,12 @@ const Profile = ({
     return (
       <section className={styles.container}>
         <article className={styles.grid}>
-          <div className={styles.profile_picture}>
+          <figure className={styles.profile_picture}>
             <img
               src={picture}
               alt={name}
             />
-          </div>
+          </figure>
           <div>
             <h2 className={styles.profile_name}>{name}</h2>
             <p>{professionalHeadline}</p>
@@ -65,11 +65,11 @@ const Profile = ({
                 {languages?.map((lan) => ` - ${lan.language} (${lan.fluency})`)}
               </p>
             </div>
-            <div className={`${styles.py_2} ${styles.mt_4}`}>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
               <h2 className={styles.py_2}>Bio:</h2>
               <p>{summaryOfBio}</p>
-            </div>
-            <div className={`${styles.py_2} ${styles.mt_4}`}>
+            </section>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
               <h2 className={styles.py_2}>Strengths:</h2>
               {strengths?.map((str) => (
                 <p
@@ -79,8 +79,8 @@ const Profile = ({
                   {str.name}
                 </p>
               ))}
-            </div>
-            <div className={`${styles.py_2} ${styles.mt_4}`}>
+            </section>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
               <h2 className={styles.py_2}>Interests:</h2>
               {interests?.map((int) => (
                 <p
@@ -90,7 +90,7 @@ const Profile = ({
                   {int.name}
                 </p>
               ))}
-            </div>
+            </section>
           </div>
         </article>
       </section>
