@@ -53,7 +53,7 @@ const Jobs = ({
         <div className={styles.container}>
           {
       jobs?.results?.map((i) => (
-        <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="sm" p="4" m="8">
+        <div key={i.id} className={styles.job_card}>
           <Link to={`/jobs/${i.id}`}>
             <Box display="flex">
               <Image
@@ -97,7 +97,7 @@ const Jobs = ({
               </Box>
             </Box>
           </Link>
-        </Box>
+        </div>
       ))
       }
         </div>
