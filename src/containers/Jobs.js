@@ -8,6 +8,7 @@ import {
 } from 'chakra-paginator';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Jobs.module.css';
+import global from '../styles/index.module.css';
 import fetchJobs from '../redux/actions/jobs';
 import Pagination from '../components/Pagination';
 
@@ -31,7 +32,7 @@ const Jobs = ({
 
   if (status === 'rejected') {
     return (
-      <section className={styles.center}>
+      <section className={global.center}>
         <p>{error.message}</p>
       </section>
     );
@@ -39,11 +40,11 @@ const Jobs = ({
 
   if (status === 'resolved') {
     return (
-      <section className={styles.center}>
+      <section className={global.center}>
         <section className={styles.container}>
           {
       jobs?.results?.map((i) => (
-        <article key={i.id} className={styles.job_card}>
+        <article key={i.id} className={global.job_card}>
           <Link to={`/jobs/${i.id}`}>
             <div className={styles.flexbox}>
               <img
@@ -52,7 +53,7 @@ const Jobs = ({
                 alt="company logo"
               />
               <div className={styles.pl_4}>
-                <h3 className={styles.job_title}>{i.objective}</h3>
+                <h3 className={global.job_title}>{i.objective}</h3>
                 <p className={styles.company_name}>
                   <span>at </span>
                   {i.organizations[0].name}
@@ -89,9 +90,9 @@ const Jobs = ({
       ))
       }
         </section>
-        <section className={styles.pagination_container}>
+        <section className={global.pagination_container}>
           <Pagination
-            className={styles.pagination}
+            className={global.pagination}
             currentPage={currentPage}
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}
@@ -102,8 +103,8 @@ const Jobs = ({
   }
 
   return (
-    <section className={styles.center}>
-      <h2 className={styles.loading}>Loading...</h2>
+    <section className={global.center}>
+      <h2 className={global.loading}>Loading...</h2>
     </section>
   );
 };

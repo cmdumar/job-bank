@@ -91,7 +91,7 @@ const Profiles = ({
 
   return (
     <section className={global.center}>
-      <h2 className={global.loading} as="h1" size="lg">Loading...</h2>
+      <h2 className={global.loading}>Loading...</h2>
     </section>
   );
 };
