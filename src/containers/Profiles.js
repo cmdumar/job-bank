@@ -1,7 +1,4 @@
 import {
-  Box, Text, Tag,
-} from '@chakra-ui/react';
-import {
   string, array, object, func, oneOfType,
 } from 'prop-types';
 import React, { useEffect } from 'react';
@@ -63,18 +60,18 @@ const Profiles = ({
                   <h3 className={global.job_title}>
                     {name}
                   </h3>
-                  <Text fontSize="md" pt="2">{professionalHeadline}</Text>
-                  <Box display="flex" alignItems="center" pt="2">
+                  <p className={styles.headline}>{professionalHeadline}</p>
+                  <div className={styles.location}>
                     <MdLocationOn />
-                    <Text pl="1" fontSize="xs">{locationName}</Text>
-                  </Box>
-                  <Box pt="2">
+                    <p className={styles.location_text}>{locationName}</p>
+                  </div>
+                  <div className={styles.pt_2}>
                     {openTo.map((job) => (
-                      <Tag key={job} colorScheme="green" my="1" mr="1">
+                      <p key={job} className={styles.tag}>
                         {job}
-                      </Tag>
+                      </p>
                     ))}
-                  </Box>
+                  </div>
                 </section>
               </Link>
             </article>
