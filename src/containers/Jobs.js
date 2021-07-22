@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-import {
-  Box, Container, Image, Tag, Text, useColorModeValue, Heading, Img,
-} from '@chakra-ui/react';
 import {
   object, func, oneOfType, string, array,
 } from 'prop-types';
@@ -33,21 +29,17 @@ const Jobs = ({
 
   const totalPages = Math.round((jobs.total + 15 - 1) / 15);
 
-  let toRender;
-
-  if (status === 'pending') {
-    toRender = (
-      <Heading as="h1" size="lg">Loading...</Heading>
+  if (status === 'rejected') {
+    return (
+      <section className={styles.center}>
+        <p>{error.message}</p>
+      </section>
     );
   }
 
-  if (status === 'rejected') {
-    toRender = <Text>{error.message}</Text>;
-  }
-
   if (status === 'resolved') {
-    toRender = (
-      <>
+    return (
+      <section className={styles.center}>
         <section className={styles.container}>
           {
       jobs?.results?.map((i) => (
@@ -97,20 +89,21 @@ const Jobs = ({
       ))
       }
         </section>
-        <section>
+        <section className={styles.pagination_container}>
           <Pagination
+            className={styles.pagination}
             currentPage={currentPage}
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}
           />
         </section>
-      </>
+      </section>
     );
   }
 
   return (
-    <section>
-      {toRender}
+    <section className={styles.center}>
+      <h2 className={styles.loading}>Loading...</h2>
     </section>
   );
 };
