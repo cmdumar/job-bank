@@ -5,6 +5,7 @@ import status from './status';
 import error from './error';
 import profiles from './profiles';
 import profile from './profile';
+import search from './search';
 
 export default combineReducers({
   status,
@@ -13,4 +14,5 @@ export default combineReducers({
   profiles,
   profile,
   error,
+  search,
 });
