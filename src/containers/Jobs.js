@@ -1,7 +1,7 @@
 import {
   object, func, oneOfType, string, array,
 } from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   usePaginator,
@@ -19,13 +19,19 @@ const Jobs = ({
     initialState: { currentPage: 1 },
   });
 
+  const [jbs, setJbs] = useState({});
+
   useEffect(async () => {
-    if (currentPage === 1) fetchJobs(0);
+    if (currentPage === 1) {
+      await fetchJobs(0);
+      setJbs(jobs);
+    }
   }, [currentPage]);
 
   useEffect(async () => {
     if (currentPage === 1) return;
     await fetchJobs((currentPage - 1) * 15);
+    setJbs(jobs);
   }, [currentPage]);
 
   const totalPages = Math.round((jobs.total + 15 - 1) / 15);
@@ -43,7 +49,7 @@ const Jobs = ({
       <section className={global.center}>
         <section className={styles.container}>
           {
-      jobs?.results?.map((i) => (
+      jbs?.results?.map((i) => (
         <article key={i.id} className={global.job_card}>
           <Link to={`/jobs/${i.id}`}>
             <div className={styles.flexbox}>
