@@ -23,6 +23,11 @@
   margin-bottom: 7px;
 }
 
+.title_md {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .text_icon {
   display: flex;
   -webkit-box-align: center;
@@ -48,6 +53,13 @@
 .green {
   background-color: #38a169;
   color: white;
+}
+
+.edu_card {
+  border: 1px solid #9a868629;
+  border-radius: 4px;
+  margin: 10px 0;
+  padding: 10px;
 }
 
 .text_icon p {

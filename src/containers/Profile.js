@@ -35,7 +35,7 @@ const Profile = ({
       person: {
         name, picture, professionalHeadline, location, summaryOfBio,
         flags: { remoter },
-      }, strengths, languages, interests,
+      }, strengths, languages, interests, education, experiences,
     } = profile;
 
     return (
@@ -47,7 +47,7 @@ const Profile = ({
               alt={name}
             />
           </figure>
-          <div>
+          <section>
             <h2 className={styles.profile_name}>{name}</h2>
             <p>{professionalHeadline}</p>
             <div className={`${styles.text_icon} ${styles.py_2}`}>
@@ -68,6 +68,9 @@ const Profile = ({
             <section className={`${styles.py_2} ${styles.mt_4}`}>
               <h2 className={styles.py_2}>Bio:</h2>
               <p>{summaryOfBio}</p>
+              <p>
+                {!summaryOfBio ? 'No bio found.' : null}
+              </p>
             </section>
             <section className={`${styles.py_2} ${styles.mt_4}`}>
               <h2 className={styles.py_2}>Strengths:</h2>
@@ -91,7 +94,45 @@ const Profile = ({
                 </p>
               ))}
             </section>
-          </div>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Experiences:</h2>
+              {experiences?.map((ex) => (
+                <div key={ex.id} className={styles.edu_card}>
+                  <h2 className={styles.title_md}>{ex.name}</h2>
+                  <p>
+                    {ex.fromYear}
+                    {' '}
+                    -
+                    {' '}
+                    {ex.toYear}
+                  </p>
+                  <p>
+                    {ex.organizations[0]?.name}
+                  </p>
+                </div>
+              ))}
+              {experiences.length === 0 ? 'No experience found.' : null}
+            </section>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Education:</h2>
+              {education?.map((edu) => (
+                <div key={edu.id} className={styles.edu_card}>
+                  <h2 className={styles.title_md}>{edu.name}</h2>
+                  <p>
+                    {edu.fromYear}
+                    {' '}
+                    -
+                    {' '}
+                    {edu.toYear}
+                  </p>
+                  <p>
+                    {edu.organizations[0]?.name}
+                  </p>
+                </div>
+              ))}
+              {education.length === 0 ? 'No education found.' : null}
+            </section>
+          </section>
         </article>
       </section>
     );
