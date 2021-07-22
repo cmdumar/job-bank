@@ -1,13 +1,15 @@
 import {
   Box, Stack, Input,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bool } from 'prop-types';
 import { ColorModeSwitcher } from '../../ColorModeSwitcher';
 import MenuItem from './MenuItem';
 import setSearchInput from '../../redux/actions/search';
 
 const MenuLinks = ({ isOpen }) => {
+  const value = useSelector((state) => state.search);
+
   const dispatch = useDispatch();
 
   const handleSearch = (event) => {
@@ -27,7 +29,7 @@ const MenuLinks = ({ isOpen }) => {
         direction={['column', 'row', 'row', 'row']}
         pt={[4, 4, 0, 0]}
       >
-        <Input placeholder="Search..." onChange={handleSearch} size="sm" />
+        <Input placeholder="Search..." value={value} onChange={handleSearch} size="sm" />
         <MenuItem to="/">Jobs</MenuItem>
         <MenuItem to="/profiles">People</MenuItem>
         <ColorModeSwitcher justifySelf="flex-end" />

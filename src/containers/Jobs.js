@@ -2,7 +2,7 @@ import {
   object, func, oneOfType, string, array,
 } from 'prop-types';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import {
   usePaginator,
 } from 'chakra-paginator';
@@ -11,6 +11,7 @@ import styles from '../styles/Jobs.module.css';
 import global from '../styles/index.module.css';
 import fetchJobs from '../redux/actions/jobs';
 import Pagination from '../components/Pagination';
+import setSearchInput from '../redux/actions/search';
 
 const Jobs = ({
   fetchJobs, jobs, status, error, search,
@@ -18,6 +19,12 @@ const Jobs = ({
   const { currentPage, setCurrentPage } = usePaginator({
     initialState: { currentPage: 1 },
   });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSearchInput(''));
+  }, []);
 
   useEffect(async () => {
     if (currentPage === 1) {
