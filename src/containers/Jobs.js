@@ -1,40 +1,43 @@
 import {
   object, func, oneOfType, string, array,
 } from 'prop-types';
-import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import {
   usePaginator,
 } from 'chakra-paginator';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Jobs.module.css';
-import global from '../styles/index.module.css';
+import global from '../styles/Global.module.css';
 import fetchJobs from '../redux/actions/jobs';
 import Pagination from '../components/Pagination';
+import setSearchInput from '../redux/actions/search';
 
 const Jobs = ({
-  fetchJobs, jobs, status, error,
+  fetchJobs, jobs, status, error, search,
 }) => {
   const { currentPage, setCurrentPage } = usePaginator({
     initialState: { currentPage: 1 },
   });
 
-  const [jbs, setJbs] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSearchInput(''));
+  }, []);
 
   useEffect(async () => {
     if (currentPage === 1) {
       await fetchJobs(0);
-      setJbs(jobs);
     }
   }, [currentPage]);
 
   useEffect(async () => {
     if (currentPage === 1) return;
-    await fetchJobs((currentPage - 1) * 15);
-    setJbs(jobs);
+    await fetchJobs((currentPage - 1) * 50);
   }, [currentPage]);
 
-  const totalPages = Math.round((jobs.total + 15 - 1) / 15);
+  const totalPages = Math.round((jobs.total + 50 - 1) / 50);
 
   if (status === 'rejected') {
     return (
@@ -49,7 +52,15 @@ const Jobs = ({
       <section className={global.center}>
         <section className={styles.container}>
           {
-      jbs?.results?.map((i) => (
+      jobs.results?.filter((job) => {
+        if (search === '') return job;
+
+        if (job.objective.toLowerCase().includes(search.toLowerCase())) {
+          return job;
+        }
+
+        return null;
+      }).map((i) => (
         <article key={i.id} className={global.job_card}>
           <Link to={`/jobs/${i.id}`}>
             <div className={styles.flexbox}>
@@ -121,6 +132,7 @@ Jobs.propTypes = {
   jobs: object.isRequired,
   status: string.isRequired,
   error: oneOfType([string, object, array]),
+  search: string.isRequired,
 };
 
 Jobs.defaultProps = {
@@ -131,6 +143,7 @@ const mapStateToProps = (state) => ({
   jobs: state.jobs,
   status: state.status,
   error: state.error,
+  search: state.search,
 });
 
 export default connect(mapStateToProps, { fetchJobs })(Jobs);

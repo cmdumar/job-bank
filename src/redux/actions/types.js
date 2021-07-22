@@ -5,6 +5,7 @@ const types = {
   SET_PROFILE: 'SET_PROFILE',
   SET_STATUS: 'SET_STATUS',
   SET_ERRORS: 'SET_ERRORS',
+  SET_SEARCH: 'SET_SEARCH',
 };
 
 export default types;

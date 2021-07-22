@@ -2,7 +2,7 @@ import {
   string, array, object, func, oneOfType,
 } from 'prop-types';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { MdLocationOn } from 'react-icons/md';
 import {
   usePaginator,
@@ -11,14 +11,21 @@ import { Link } from 'react-router-dom';
 import fetchProfiles from '../redux/actions/profiles';
 import Pagination from '../components/Pagination';
 import styles from '../styles/Profiles.module.css';
-import global from '../styles/index.module.css';
+import global from '../styles/Global.module.css';
+import setSearchInput from '../redux/actions/search';
 
 const Profiles = ({
-  profiles, status, error, fetchProfiles,
+  profiles, status, error, fetchProfiles, search,
 }) => {
   const { currentPage, setCurrentPage } = usePaginator({
     initialState: { currentPage: 1 },
   });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSearchInput(''));
+  }, []);
 
   useEffect(async () => {
     if (currentPage === 1) fetchProfiles(0);
@@ -26,10 +33,10 @@ const Profiles = ({
 
   useEffect(async () => {
     if (currentPage === 1) return;
-    await fetchProfiles((currentPage - 1) * 15);
+    await fetchProfiles((currentPage - 1) * 50);
   }, [currentPage]);
 
-  const totalPages = Math.round((profiles.total + 15 - 1) / 15);
+  const totalPages = Math.round((profiles.total + 50 - 1) / 50);
 
   if (status === 'rejected') {
     return (
@@ -43,7 +50,15 @@ const Profiles = ({
     return (
       <section className={global.center}>
         <section className={styles.container}>
-          {profiles?.results?.map(({
+          {profiles?.results?.filter((profile) => {
+            if (search === '') return profile;
+
+            if (profile.name.toLowerCase().includes(search.toLowerCase())) {
+              return profile;
+            }
+
+            return null;
+          }).map(({
             subjectId, name, username, picture,
             professionalHeadline, openTo, locationName,
           }) => (
@@ -101,6 +116,7 @@ Profiles.propTypes = {
   profiles: oneOfType([array, object]).isRequired,
   status: string.isRequired,
   error: oneOfType([string, array, object]),
+  search: string.isRequired,
 };
 
 Profiles.defaultProps = {
@@ -111,6 +127,7 @@ const mapStateToProps = (state) => ({
   profiles: state.profiles,
   status: state.status,
   error: state.error,
+  search: state.search,
 });
 
 export default connect(mapStateToProps, { fetchProfiles })(Profiles);

@@ -5,7 +5,6 @@ import { ColorModeScript } from '@chakra-ui/react';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import App from './App';
-import './styles/index.module.css';
 
 ReactDOM.render(
   <React.StrictMode>

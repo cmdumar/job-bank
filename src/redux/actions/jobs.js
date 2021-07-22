@@ -6,7 +6,7 @@ import types from './types';
 const fetchJobs = (page) => async (dispatch) => {
   try {
     dispatch(setStatus('pending'));
-    const jobs = await axios.post(`https://search.torre.co/opportunities/_search/?offset=${page}&size=15`, {});
+    const jobs = await axios.post(`https://search.torre.co/opportunities/_search/?offset=${page}&size=50`, {});
     if (jobs.status === 200) {
       dispatch({
         payload: jobs.data,

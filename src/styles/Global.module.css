@@ -49,7 +49,3 @@ ul {
   justify-content: space-between;
   width: 100%;
 }
-
-.pagination-btn polyline {
-  stroke: white;
-}

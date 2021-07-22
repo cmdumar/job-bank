@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { IconContext } from 'react-icons';
 import { Container, Text } from '@chakra-ui/react';
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import {
   Paginator,
   Previous,
   Next,
 } from 'chakra-paginator';
+import { func, number } from 'prop-types';
 
 const Pagination = ({ currentPage, totalPages, setCurrentPage }) => (
   <Paginator
@@ -16,9 +15,6 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => (
   >
     <Container display="flex" justifyContent="space-between" w="full" p={4}>
       <Previous>
-        <IconContext.Provider value={{ className: 'pagination-btn' }}>
-          <GrFormPrevious />
-        </IconContext.Provider>
         <Text>
           Previous
         </Text>
@@ -27,12 +23,15 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => (
         <Text>
           Next
         </Text>
-        <IconContext.Provider value={{ className: 'pagination-btn' }}>
-          <GrFormNext />
-        </IconContext.Provider>
       </Next>
     </Container>
   </Paginator>
 );
+
+Pagination.propTypes = {
+  currentPage: number.isRequired,
+  totalPages: number.isRequired,
+  setCurrentPage: func.isRequired,
+};
 
 export default Pagination;
