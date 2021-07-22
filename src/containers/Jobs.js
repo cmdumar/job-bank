@@ -32,8 +32,6 @@ const Jobs = ({
 
   const totalPages = Math.round((jobs.total + 15 - 1) / 15);
 
-  console.log('search', search);
-
   if (status === 'rejected') {
     return (
       <section className={global.center}>
@@ -47,7 +45,15 @@ const Jobs = ({
       <section className={global.center}>
         <section className={styles.container}>
           {
-      jobs.results?.map((i) => (
+      jobs.results?.filter((job) => {
+        if (search === '') return job;
+
+        if (job.objective.toLowerCase().includes(search.toLowerCase())) {
+          return job;
+        }
+
+        return null;
+      }).map((i) => (
         <article key={i.id} className={global.job_card}>
           <Link to={`/jobs/${i.id}`}>
             <div className={styles.flexbox}>
