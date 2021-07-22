@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 import {
   string, array, object, func, oneOfType,
@@ -5,9 +6,12 @@ import {
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
-  Container, Box, Image, Text, Grid, Heading, Tag,
+  Container, Heading, Tag,
 } from '@chakra-ui/react';
+import { MdLocationOn } from 'react-icons/md';
+import { FaLanguage } from 'react-icons/fa';
 import fetchProfile from '../redux/actions/profile';
+import styles from '../styles/Profile.module.css';
 
 const Profile = ({
   fetchProfile, profile, status, error,
@@ -20,9 +24,9 @@ const Profile = ({
 
   if (status === 'rejected') {
     return (
-      <Text>
+      <h2>
         {error.message}
-      </Text>
+      </h2>
     );
   }
 
@@ -30,45 +34,66 @@ const Profile = ({
     const {
       person: {
         name, picture, professionalHeadline, location, summaryOfBio,
-      }, strengths, languages,
+        flags: { remoter },
+      }, strengths, languages, interests,
     } = profile;
 
     return (
-      <Container maxW="container.lg">
-        <Grid gridTemplateColumns="300px 1fr">
-          <Box>
-            <Image
+      <section className={styles.container}>
+        <article className={styles.grid}>
+          <div className={styles.profile_picture}>
+            <img
               src={picture}
-              boxSize="250px"
               alt={name}
             />
-          </Box>
-          <Box>
-            <Heading as="h2" size="lg" fontWeight="500" pb="4">{name}</Heading>
-            <Text pt="1">{professionalHeadline}</Text>
-            <Text pt="1">{location.name}</Text>
-            <Text>
-              Languages
-              {languages?.map((lan) => ` - ${lan.language} (${lan.fluency})`)}
-            </Text>
-            <Box py="2">
-              <Text>{summaryOfBio}</Text>
-            </Box>
-            <Box py="2">
+          </div>
+          <div>
+            <h2 className={styles.profile_name}>{name}</h2>
+            <p>{professionalHeadline}</p>
+            <div className={`${styles.text_icon} ${styles.py_2}`}>
+              <MdLocationOn />
+              <p>
+                {location.name}
+                {' '}
+                {remoter ? '(Can work remotely)' : ''}
+              </p>
+            </div>
+            <div className={`${styles.text_icon} ${styles.py_2}`}>
+              <FaLanguage />
+              <p>
+                Language(s)
+                {languages?.map((lan) => ` - ${lan.language} (${lan.fluency})`)}
+              </p>
+            </div>
+            <div className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Bio:</h2>
+              <p>{summaryOfBio}</p>
+            </div>
+            <div className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Strengths:</h2>
               {strengths?.map((str) => (
-                <Tag
-                  colorScheme="telegram"
+                <p
                   key={str.id}
-                  mr="1"
-                  mb="1"
+                  className={styles.tag}
                 >
                   {str.name}
-                </Tag>
+                </p>
               ))}
-            </Box>
-          </Box>
-        </Grid>
-      </Container>
+            </div>
+            <div className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Interests:</h2>
+              {interests?.map((int) => (
+                <p
+                  key={int.id}
+                  className={`${styles.tag} ${styles.green}`}
+                >
+                  {int.name}
+                </p>
+              ))}
+            </div>
+          </div>
+        </article>
+      </section>
     );
   }
 
