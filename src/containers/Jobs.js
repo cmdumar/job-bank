@@ -1,15 +1,14 @@
 import {
-  Box, Container, Image, Tag, Text, useColorModeValue, Heading,
-} from '@chakra-ui/react';
-import {
   object, func, oneOfType, string, array,
 } from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   usePaginator,
 } from 'chakra-paginator';
 import { Link } from 'react-router-dom';
+import styles from '../styles/Jobs.module.css';
+import global from '../styles/index.module.css';
 import fetchJobs from '../redux/actions/jobs';
 import Pagination from '../components/Pagination';
 
@@ -20,98 +19,99 @@ const Jobs = ({
     initialState: { currentPage: 1 },
   });
 
-  const jobTitleColor = useColorModeValue('blue.800', 'blue.300');
+  const [jbs, setJbs] = useState({});
 
   useEffect(async () => {
-    if (currentPage === 1) fetchJobs(0);
+    if (currentPage === 1) {
+      await fetchJobs(0);
+      setJbs(jobs);
+    }
   }, [currentPage]);
 
   useEffect(async () => {
     if (currentPage === 1) return;
     await fetchJobs((currentPage - 1) * 15);
+    setJbs(jobs);
   }, [currentPage]);
 
   const totalPages = Math.round((jobs.total + 15 - 1) / 15);
 
-  let toRender;
-
-  if (status === 'pending') {
-    toRender = (
-      <Heading as="h1" size="lg">Loading...</Heading>
+  if (status === 'rejected') {
+    return (
+      <section className={global.center}>
+        <p>{error.message}</p>
+      </section>
     );
   }
 
-  if (status === 'rejected') {
-    toRender = <Text>{error.message}</Text>;
-  }
-
   if (status === 'resolved') {
-    toRender = (
-      <Box>
-        {
-      jobs?.results?.map((i) => (
-        <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="sm" p="4" m="8">
+    return (
+      <section className={global.center}>
+        <section className={styles.container}>
+          {
+      jbs?.results?.map((i) => (
+        <article key={i.id} className={global.job_card}>
           <Link to={`/jobs/${i.id}`}>
-            <Box display="flex">
-              <Image
-                borderRadius="full"
-                boxSize="50px"
-                fit="cover"
+            <div className={styles.flexbox}>
+              <img
+                className={styles.logo}
                 src={i.organizations[0].picture}
                 alt="company logo"
               />
-              <Box textAlign="left" pl="4">
-                <Text fontSize="lg" pb="1" color={jobTitleColor} fontWeight="500">{i.objective}</Text>
-                <Text fontSize="sm" pb="1">
-                  <Text display="inline" color="gray.500" as="span">at </Text>
+              <div className={styles.pl_4}>
+                <h3 className={global.job_title}>{i.objective}</h3>
+                <p className={styles.company_name}>
+                  <span>at </span>
                   {i.organizations[0].name}
-                </Text>
-                <Text fontSize="sm" pb="1">
+                </p>
+                <p className={styles.location}>
                   {`
                   ${i.remote ? 'Remote' : ''}
                   ${i.locations.length > 0 ? ` | ${i.locations[0]}` : ''}`}
-                </Text>
-                <Text fontSize="sm" pb="1">
+                </p>
+                <p className={styles.date}>
                   Posted on
                   {' '}
                   {new Date(i.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}
-                </Text>
-                <Text fontSize="sm" color="green.400" pb="1">
+                </p>
+                <p className={styles.salary}>
                   Salary:
                   {' '}
                   {`USD ${i.compensation?.data?.minHourlyUSD?.toFixed(2)} to
                 USD ${i.compensation?.data?.maxHourlyUSD?.toFixed(2)}`}
                   {' '}
                   hourly
-                </Text>
-                <Box>
+                </p>
+                <div>
                   {i.skills.slice().map((skill) => (
-                    <Tag key={skill.name} my="1" mr="1" colorScheme="messenger">
+                    <p key={skill.name} className={styles.tag}>
                       {skill.name}
-                    </Tag>
+                    </p>
                   ))}
-                </Box>
-              </Box>
-            </Box>
+                </div>
+              </div>
+            </div>
           </Link>
-        </Box>
+        </article>
       ))
       }
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-        />
-      </Box>
+        </section>
+        <section className={global.pagination_container}>
+          <Pagination
+            className={global.pagination}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        </section>
+      </section>
     );
   }
 
   return (
-    <Container maxW="container.md">
-      <Box>
-        {toRender}
-      </Box>
-    </Container>
+    <section className={global.center}>
+      <h2 className={global.loading}>Loading...</h2>
+    </section>
   );
 };
 

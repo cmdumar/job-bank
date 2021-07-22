@@ -1,0 +1,75 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.job_card {
+  padding: 1rem;
+  border: 1px solid #38444d;
+  border-radius: 4px;
+}
+
+.logo {
+  border-radius: 9999px;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+.flexbox {
+  display: flex;
+}
+
+.pl_4 {
+  padding-left: 0.5rem;
+}
+
+.company_name {
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+
+.location {
+  font-size: 15px;
+  padding-bottom: 3px;
+}
+
+.date {
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.salary {
+  color: #48bb78;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 7px;
+}
+
+.tag {
+  display: inline-flex;
+  font-size: 13px;
+  border: 1px solid #b9daff;
+  border-radius: 4px;
+  color: #003c7e;
+  background-color: #b9daff;
+  margin: 3px 2px;
+  padding: 3px 5px;
+}
+
+.company_name span {
+  color: gray;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}

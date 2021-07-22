@@ -1,7 +1,4 @@
 import {
-  Container, Box, Text, Image, Tag, Heading,
-} from '@chakra-ui/react';
-import {
   string, array, object, func, oneOfType,
 } from 'prop-types';
 import React, { useEffect } from 'react';
@@ -13,6 +10,8 @@ import {
 import { Link } from 'react-router-dom';
 import fetchProfiles from '../redux/actions/profiles';
 import Pagination from '../components/Pagination';
+import styles from '../styles/Profiles.module.css';
+import global from '../styles/index.module.css';
 
 const Profiles = ({
   profiles, status, error, fetchProfiles,
@@ -34,67 +33,66 @@ const Profiles = ({
 
   if (status === 'rejected') {
     return (
-      <Container>
-        <Text>{error.message}</Text>
-      </Container>
+      <section className={global.center}>
+        <h2 className={global.loading}>{error.message}</h2>
+      </section>
     );
   }
 
   if (status === 'resolved') {
     return (
-      <Container>
-        <Box>
+      <section className={global.center}>
+        <section className={styles.container}>
           {profiles?.results?.map(({
             subjectId, name, username, picture,
             professionalHeadline, openTo, locationName,
           }) => (
-            <Box key={subjectId} maxW="full" borderWidth="1px" borderRadius="sm" p="4" m="8">
+            <article key={subjectId} className={global.job_card}>
               <Link to={`/profiles/${username}`}>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  flexFlow="column"
-                  alignItems="center"
-                  textAlign="center"
+                <section
+                  className={styles.flexbox}
                 >
-                  <Image
+                  <img
                     src={picture}
-                    boxSize="150px"
-                    borderRadius="full"
+                    className={styles.profile_image}
+                    alt="Profile"
                   />
-                  <Text fontSize="lg" fontWeight="600" pt="4">
+                  <h3 className={global.job_title}>
                     {name}
-                  </Text>
-                  <Text fontSize="md" pt="2">{professionalHeadline}</Text>
-                  <Box display="flex" alignItems="center" pt="2">
+                  </h3>
+                  <p className={styles.headline}>{professionalHeadline}</p>
+                  <div className={styles.location}>
                     <MdLocationOn />
-                    <Text pl="1" fontSize="xs">{locationName}</Text>
-                  </Box>
-                  <Box pt="2">
+                    <p className={styles.location_text}>{locationName}</p>
+                  </div>
+                  <div className={styles.pt_2}>
                     {openTo.map((job) => (
-                      <Tag key={job} colorScheme="green" my="1" mr="1">
+                      <p key={job} className={styles.tag}>
                         {job}
-                      </Tag>
+                      </p>
                     ))}
-                  </Box>
-                </Box>
+                  </div>
+                </section>
               </Link>
-            </Box>
+            </article>
           ))}
+        </section>
+        <section className={global.pagination_container}>
           <Pagination
+            className={global.pagination}
             totalPages={totalPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
-        </Box>
-      </Container>
+        </section>
+      </section>
     );
   }
 
   return (
-    <Container>
-      <Heading as="h1" size="lg">Loading...</Heading>
-    </Container>
+    <section className={global.center}>
+      <h2 className={global.loading}>Loading...</h2>
+    </section>
   );
 };
 
