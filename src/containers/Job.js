@@ -14,7 +14,6 @@ import { useParams } from 'react-router-dom';
 import fetchJob from '../redux/actions/job';
 
 function numberWithCommas(x) {
-  if (!x) return undefined;
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
@@ -33,7 +32,7 @@ const Job = ({
     );
   }
 
-  if (status === 'resolved' && job?.compensation) {
+  if (status === 'resolved' && job?.compensation?.minAmount) {
     const {
       objective, organizations, place: { remote, location },
       compensation: {
