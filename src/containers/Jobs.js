@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   Box, Container, Image, Tag, Text, useColorModeValue, Heading,
 } from '@chakra-ui/react';
@@ -10,6 +11,7 @@ import {
   usePaginator,
 } from 'chakra-paginator';
 import { Link } from 'react-router-dom';
+import styles from '../styles/Jobs.module.css';
 import fetchJobs from '../redux/actions/jobs';
 import Pagination from '../components/Pagination';
 
@@ -47,8 +49,9 @@ const Jobs = ({
 
   if (status === 'resolved') {
     toRender = (
-      <Box>
-        {
+      <>
+        <div className={styles.container}>
+          {
       jobs?.results?.map((i) => (
         <Box key={i.id} maxW="full" borderWidth="1px" borderRadius="sm" p="4" m="8">
           <Link to={`/jobs/${i.id}`}>
@@ -97,21 +100,22 @@ const Jobs = ({
         </Box>
       ))
       }
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-        />
-      </Box>
+        </div>
+        <Box>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        </Box>
+      </>
     );
   }
 
   return (
-    <Container maxW="container.md">
-      <Box>
-        {toRender}
-      </Box>
-    </Container>
+    <div>
+      {toRender}
+    </div>
   );
 };
 
