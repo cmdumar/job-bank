@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  Box, Container, Image, Tag, Text, useColorModeValue, Heading,
+  Box, Container, Image, Tag, Text, useColorModeValue, Heading, Img,
 } from '@chakra-ui/react';
 import {
   object, func, oneOfType, string, array,
@@ -56,10 +56,8 @@ const Jobs = ({
         <div key={i.id} className={styles.job_card}>
           <Link to={`/jobs/${i.id}`}>
             <Box display="flex">
-              <Image
-                borderRadius="full"
-                boxSize="50px"
-                fit="cover"
+              <img
+                className={styles.logo}
                 src={i.organizations[0].picture}
                 alt="company logo"
               />
