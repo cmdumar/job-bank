@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import fetchJob from '../redux/actions/job';
+import global from '../styles/Global.module.css';
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -136,9 +137,9 @@ const Job = ({
   }
 
   return (
-    <Container>
-      <Heading as="h1" size="lg">Loading...</Heading>
-    </Container>
+    <section className={global.center}>
+      <h3 className={global.loading}>Loading...</h3>
+    </section>
   );
 };
 

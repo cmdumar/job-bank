@@ -1,17 +1,14 @@
-/* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 import {
   string, array, object, func, oneOfType,
 } from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  Container, Heading, Tag,
-} from '@chakra-ui/react';
 import { MdLocationOn } from 'react-icons/md';
 import { FaLanguage } from 'react-icons/fa';
 import fetchProfile from '../redux/actions/profile';
 import styles from '../styles/Profile.module.css';
+import global from '../styles/Global.module.css';
 
 const Profile = ({
   fetchProfile, profile, status, error,
@@ -69,7 +66,7 @@ const Profile = ({
               <h2 className={styles.py_2}>Bio:</h2>
               <p>{summaryOfBio}</p>
               <p>
-                {!summaryOfBio ? 'No bio found.' : null}
+                {!summaryOfBio ? 'Bio not found.' : null}
               </p>
             </section>
             <section className={`${styles.py_2} ${styles.mt_4}`}>
@@ -93,6 +90,7 @@ const Profile = ({
                   {int.name}
                 </p>
               ))}
+              {interests.length === 0 ? 'No interests found.' : null}
             </section>
             <section className={`${styles.py_2} ${styles.mt_4}`}>
               <h2 className={styles.py_2}>Experiences:</h2>
@@ -139,9 +137,9 @@ const Profile = ({
   }
 
   return (
-    <Container>
-      <Heading as="h1" size="lg">Loading...</Heading>
-    </Container>
+    <section className={global.center}>
+      <h3 className={global.loading}>Loading...</h3>
+    </section>
   );
 };
 

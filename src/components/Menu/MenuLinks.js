@@ -3,7 +3,7 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bool } from 'prop-types';
-import { ColorModeSwitcher } from '../../ColorModeSwitcher';
+import ColorModeSwitcher from '../../ColorModeSwitcher';
 import MenuItem from './MenuItem';
 import setSearchInput from '../../redux/actions/search';
 
