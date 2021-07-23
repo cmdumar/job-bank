@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Container, Text } from '@chakra-ui/react';
 import {
   Paginator,
@@ -16,12 +15,12 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => (
     <Container display="flex" justifyContent="space-between" w="full" p={4}>
       <Previous>
         <Text>
-          Previous
+          Previous Page
         </Text>
       </Previous>
       <Next>
         <Text>
-          Next
+          Next Page
         </Text>
       </Next>
     </Container>

@@ -4,10 +4,11 @@ import {
 } from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  Container, Box, Image, Text, Grid, Heading, Tag,
-} from '@chakra-ui/react';
+import { MdLocationOn } from 'react-icons/md';
+import { FaLanguage } from 'react-icons/fa';
 import fetchProfile from '../redux/actions/profile';
+import styles from '../styles/Profile.module.css';
+import global from '../styles/Global.module.css';
 
 const Profile = ({
   fetchProfile, profile, status, error,
@@ -20,9 +21,9 @@ const Profile = ({
 
   if (status === 'rejected') {
     return (
-      <Text>
+      <h2>
         {error.message}
-      </Text>
+      </h2>
     );
   }
 
@@ -30,52 +31,115 @@ const Profile = ({
     const {
       person: {
         name, picture, professionalHeadline, location, summaryOfBio,
-      }, strengths, languages,
+        flags: { remoter },
+      }, strengths, languages, interests, education, experiences,
     } = profile;
 
     return (
-      <Container maxW="container.lg">
-        <Grid gridTemplateColumns="300px 1fr">
-          <Box>
-            <Image
+      <section className={styles.container}>
+        <article className={styles.grid}>
+          <figure className={styles.profile_picture}>
+            <img
               src={picture}
-              boxSize="250px"
               alt={name}
             />
-          </Box>
-          <Box>
-            <Heading as="h2" size="lg" fontWeight="500" pb="4">{name}</Heading>
-            <Text pt="1">{professionalHeadline}</Text>
-            <Text pt="1">{location.name}</Text>
-            <Text>
-              Languages
-              {languages?.map((lan) => ` - ${lan.language} (${lan.fluency})`)}
-            </Text>
-            <Box py="2">
-              <Text>{summaryOfBio}</Text>
-            </Box>
-            <Box py="2">
+          </figure>
+          <section>
+            <h2 className={styles.profile_name}>{name}</h2>
+            <p>{professionalHeadline}</p>
+            <div className={`${styles.text_icon} ${styles.py_2}`}>
+              <MdLocationOn />
+              <p>
+                {location.name}
+                {' '}
+                {remoter ? '(Can work remotely)' : ''}
+              </p>
+            </div>
+            <div className={`${styles.text_icon} ${styles.py_2}`}>
+              <FaLanguage />
+              <p>
+                Language(s)
+                {languages?.map((lan) => ` - ${lan.language} (${lan.fluency})`)}
+              </p>
+            </div>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Bio:</h2>
+              <p>{summaryOfBio}</p>
+              <p>
+                {!summaryOfBio ? 'Bio not found.' : null}
+              </p>
+            </section>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Strengths:</h2>
               {strengths?.map((str) => (
-                <Tag
-                  colorScheme="telegram"
+                <p
                   key={str.id}
-                  mr="1"
-                  mb="1"
+                  className={styles.tag}
                 >
                   {str.name}
-                </Tag>
+                </p>
               ))}
-            </Box>
-          </Box>
-        </Grid>
-      </Container>
+            </section>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Interests:</h2>
+              {interests?.map((int) => (
+                <p
+                  key={int.id}
+                  className={`${styles.tag} ${styles.green}`}
+                >
+                  {int.name}
+                </p>
+              ))}
+              {interests.length === 0 ? 'No interests found.' : null}
+            </section>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Experiences:</h2>
+              {experiences?.map((ex) => (
+                <div key={ex.id} className={styles.edu_card}>
+                  <h2 className={styles.title_md}>{ex.name}</h2>
+                  <p>
+                    {ex.fromYear}
+                    {' '}
+                    -
+                    {' '}
+                    {ex.toYear}
+                  </p>
+                  <p>
+                    {ex.organizations[0]?.name}
+                  </p>
+                </div>
+              ))}
+              {experiences.length === 0 ? 'No experience found.' : null}
+            </section>
+            <section className={`${styles.py_2} ${styles.mt_4}`}>
+              <h2 className={styles.py_2}>Education:</h2>
+              {education?.map((edu) => (
+                <div key={edu.id} className={styles.edu_card}>
+                  <h2 className={styles.title_md}>{edu.name}</h2>
+                  <p>
+                    {edu.fromYear}
+                    {' '}
+                    -
+                    {' '}
+                    {edu.toYear}
+                  </p>
+                  <p>
+                    {edu.organizations[0]?.name}
+                  </p>
+                </div>
+              ))}
+              {education.length === 0 ? 'No education found.' : null}
+            </section>
+          </section>
+        </article>
+      </section>
     );
   }
 
   return (
-    <Container>
-      <Heading as="h1" size="lg">Loading...</Heading>
-    </Container>
+    <section className={global.center}>
+      <h3 className={global.loading}>Loading...</h3>
+    </section>
   );
 };
 
