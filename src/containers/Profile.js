@@ -29,10 +29,8 @@ const Profile = ({
 
   if (status === 'resolved' && profile?.person) {
     const {
-      person: {
-        name, picture, professionalHeadline, location, summaryOfBio,
-        flags: { remoter },
-      }, strengths, languages, interests, education, experiences,
+      name, picture, professionalHeadline, location, summaryOfBio,
+      remoter, strengths, languages, interests, education, experiences,
     } = profile;
 
     return (
