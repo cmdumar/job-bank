@@ -33,12 +33,10 @@ const Job = ({
     );
   }
 
-  if (status === 'resolved' && job?.compensation?.minAmount) {
+  if (status === 'resolved' && job?.minAmount) {
     const {
-      objective, organizations, place: { remote, location },
-      compensation: {
-        currency, minAmount, maxAmount, periodicity,
-      },
+      objective, organizations, remote, location,
+      currency, minAmount, maxAmount, periodicity,
       languages, strengths,
       details, members,
     } = job;
