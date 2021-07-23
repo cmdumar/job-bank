@@ -1,11 +1,10 @@
 import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
-import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function Logo({ w }) {
+export default function Logo() {
   return (
-    <Box w={w}>
+    <Box>
       <Link to="/">
         <Text fontSize="2xl" fontWeight="bold">
           Job Bank
@@ -14,11 +13,3 @@ export default function Logo({ w }) {
     </Box>
   );
 }
-
-Logo.propTypes = {
-  w: string,
-};
-
-Logo.defaultProps = {
-  w: '',
-};

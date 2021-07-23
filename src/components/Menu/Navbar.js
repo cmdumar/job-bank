@@ -11,9 +11,7 @@ const NavBar = () => {
 
   return (
     <NavBarContainer>
-      <Logo
-        w="100px"
-      />
+      <Logo />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
