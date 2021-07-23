@@ -12,6 +12,7 @@ import global from '../styles/Global.module.css';
 import fetchJobs from '../redux/actions/jobs';
 import Pagination from '../components/Pagination';
 import setSearchInput from '../redux/actions/search';
+import numberWithCommas from '../helpers/numberWithCommas';
 
 const Jobs = ({
   fetchJobs, jobs, status, error, search,
@@ -106,6 +107,15 @@ const Jobs = ({
         </article>
       ))
       }
+        </section>
+        <section className={global.py_20}>
+          <h1 className={global.total_text}>
+            Total
+            {' '}
+            {jobs.total && numberWithCommas(jobs.total)}
+            {' '}
+            jobs found
+          </h1>
         </section>
         <section className={global.pagination_container}>
           <Pagination

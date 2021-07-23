@@ -38,6 +38,15 @@ ul {
   padding-bottom: 7px;
 }
 
+.total_text {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.py_20 {
+  margin: 30px auto;
+}
+
 .pagination_container {
   width: 100%;
   max-width: 60ch;

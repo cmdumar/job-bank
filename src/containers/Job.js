@@ -13,10 +13,7 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import fetchJob from '../redux/actions/job';
 import global from '../styles/Global.module.css';
-
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+import numberWithCommas from '../helpers/numberWithCommas';
 
 const Job = ({
   fetchJob, job, status, error,

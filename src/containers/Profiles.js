@@ -13,6 +13,7 @@ import Pagination from '../components/Pagination';
 import styles from '../styles/Profiles.module.css';
 import global from '../styles/Global.module.css';
 import setSearchInput from '../redux/actions/search';
+import numberWithCommas from '../helpers/numberWithCommas';
 
 const Profiles = ({
   profiles, status, error, fetchProfiles, search,
@@ -91,6 +92,15 @@ const Profiles = ({
               </Link>
             </article>
           ))}
+        </section>
+        <section className={global.py_20}>
+          <h1 className={global.total_text}>
+            Total
+            {' '}
+            {profiles.total && numberWithCommas(profiles.total)}
+            {' '}
+            profiles found
+          </h1>
         </section>
         <section className={global.pagination_container}>
           <Pagination
