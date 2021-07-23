@@ -38,7 +38,7 @@ const Job = ({
       objective, organizations, remote, location,
       currency, minAmount, maxAmount, periodicity,
       languages, strengths,
-      details, members,
+      details, members, created,
     } = job;
 
     return (
@@ -76,7 +76,7 @@ const Job = ({
             <AiOutlineClockCircle />
             <Text fontSize="sm" pl="2">
               Posted on
-              {` ${new Date(job?.created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}`}
+              {` ${new Date(created).toLocaleString('en-us', { day: 'numeric', month: 'long' })}`}
             </Text>
           </Box>
           <Box display="flex" alignItems="center" pt="2" fontWeight="300">
