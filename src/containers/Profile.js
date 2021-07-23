@@ -27,7 +27,7 @@ const Profile = ({
     );
   }
 
-  if (status === 'resolved' && profile?.person) {
+  if (status === 'resolved' && profile.name) {
     const {
       name, picture, professionalHeadline, location, summaryOfBio,
       remoter, strengths, languages, interests, education, experiences,
